@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rage Faces</string>
+    
+    <!-- Message picker dialog -->
+    <string name="dialog_chooser_title">How do you want to send this?</string>
+    <string name="dialog_chooser_opt_messaging">Messaging</string>
+    <string name="dialog_chooser_opt_other">Other</string>
+    
+    <!-- Error strings -->
+    <string name="err_sd_not_mounted">SD card must be mounted to use Rage Faces - problem?</string>
+    <string name="err_loading">Could not initialize rage face app - problem?</string>
+    <string name="err_load_face">Could not load rage face onto SD card - problem?</string>
+</resources>

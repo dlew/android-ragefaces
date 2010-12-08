@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="chooser_options">
+		<item>@string/dialog_chooser_opt_messaging</item>
+		<item>@string/dialog_chooser_opt_other</item>
+	</string-array>
+</resources>
