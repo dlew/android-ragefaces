@@ -18,6 +18,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
@@ -25,6 +26,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -38,6 +41,7 @@ public class RageFacePickerActivity extends Activity {
 	private static final String TAG = "rageface";
 	private static final String RAGE_DIR = "com.idunnolol.rageface/";
 	private static final int DIALOG_MSG_SHARE = 1;
+	private static final int DIALOG_ABOUT = 2;
 	private static final String STATE_RAGEFACE_URI = "STATE_RAGEFACE_URI";
 
 	private Context mContext;
@@ -218,8 +222,27 @@ public class RageFacePickerActivity extends Activity {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.picker_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.About: {
+			showDialog(DIALOG_ABOUT);
+			return true;
+		}
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
 	protected Dialog onCreateDialog(int id) {
-		if (id == DIALOG_MSG_SHARE) {
+		switch (id) {
+		case DIALOG_MSG_SHARE: {
 			Builder builder = new Builder(this);
 			builder.setTitle(R.string.dialog_chooser_title);
 			builder.setItems(R.array.chooser_options, new OnClickListener() {
@@ -237,6 +260,36 @@ public class RageFacePickerActivity extends Activity {
 				@Override
 				public void onCancel(DialogInterface dialog) {
 					removeDialog(DIALOG_MSG_SHARE);
+				}
+			});
+			return builder.create();
+		}
+		case DIALOG_ABOUT:
+			// Try to get the version name
+			String versionName;
+			try {
+				PackageManager pm = getPackageManager();
+				PackageInfo pi = pm.getPackageInfo("com.idunnolol.ragefaces", 0);
+				versionName = pi.versionName;
+			}
+			catch (Exception e) {
+				// PackageManager is traditionally wonky, need to accept all exceptions here.
+				Log.w(TAG, "Couldn't get package info in order to show version #!", e);
+				versionName = "";
+			}
+
+			Builder builder = new Builder(this);
+			builder.setMessage(getString(R.string.about_msg, versionName));
+			builder.setNeutralButton(android.R.string.ok, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					removeDialog(DIALOG_ABOUT);
+				}
+			});
+			builder.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					removeDialog(DIALOG_ABOUT);
 				}
 			});
 			return builder.create();

@@ -7,6 +7,10 @@
     <string name="dialog_chooser_opt_messaging">Messaging</string>
     <string name="dialog_chooser_opt_other">Other</string>
     
+    <!-- About dialog -->
+    <string name="about">About</string>
+    <string name="about_msg">Rage Faces %s.\n\nWritten by rkcr.\n\nApp icon by TheFunkyMonk.</string>
+    
     <!-- Error strings -->
     <string name="err_sd_not_mounted">SD card must be mounted to use Rage Faces - problem?</string>
     <string name="err_loading">Could not initialize rage face app - problem?</string>
