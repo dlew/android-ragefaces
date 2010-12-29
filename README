@@ -1,0 +1,17 @@
+Android Rage Faces
+------------------
+
+This is the source code for the free Android application "Rage Faces".
+
+Enjoy.  Or don't enjoy.  Whatever.
+
+Adding Faces
+------------
+
+If you want to add your own faces, they must be:
+
+1. In PNG format.
+
+2. Placed into the /res/raw/ directory.
+
+The app will automatically pick up and use any faces added in this manner.
