@@ -2,11 +2,12 @@
 <resources>
     <string name="app_name">Rage Faces</string>
     
-    <!-- Message picker dialog -->
-    <string name="dialog_chooser_title">How do you want to send this?</string>
-    <string name="dialog_chooser_opt_messaging">Messaging</string>
-    <string name="dialog_chooser_opt_other">Other</string>
-    
+    <!-- Actions dialog -->
+    <string name="dialog_actions_title">WHAT DO?</string>
+    <string name="dialog_actions_opt_share">Share</string>
+    <string name="dialog_actions_opt_share_sense">Send via Messaging</string>
+    <string name="dialog_actions_opt_view">View Face</string>
+
     <!-- About dialog -->
     <string name="about">About</string>
     <string name="about_msg">Rage Faces %s.\n\nWritten by rkcr.\n\nApp icon by TheFunkyMonk.</string>

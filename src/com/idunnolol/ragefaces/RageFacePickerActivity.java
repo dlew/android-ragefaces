@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,12 +39,21 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class RageFacePickerActivity extends Activity {
 
+	// Logging tag
 	private static final String TAG = "rageface";
+
+	// Where files go for sharing with other apps
 	private static final String RAGE_DIR = "com.idunnolol.rageface/";
-	private static final int DIALOG_MSG_SHARE = 1;
-	private static final int DIALOG_ABOUT = 2;
+
+	// For keeping state between configuration changes
+	private static final String STATE_RAGEFACE_ID = "STATE_RAGEFACE_ID";
 	private static final String STATE_RAGEFACE_URI = "STATE_RAGEFACE_URI";
 
+	// Dialog codes
+	private static final int DIALOG_ACTIONS = 1;
+	private static final int DIALOG_ABOUT = 2;
+
+	// Cached Activity info
 	private Context mContext;
 	private Resources mResources;
 
@@ -56,7 +66,8 @@ public class RageFacePickerActivity extends Activity {
 	private TextView mMessageView;
 	private GridView mGridView;
 
-	// When dialog is opened, rage face uri stored here
+	// When dialog is opened, rage face data stored here
+	private int mRageFaceId;
 	private Uri mRageFaceUri;
 
 	@Override
@@ -90,10 +101,12 @@ public class RageFacePickerActivity extends Activity {
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Uri rageFaceUri = loadRageFace((String) mAdapter.getItem(position));
-				if (rageFaceUri != null) {
-					sendRageFace(rageFaceUri);
-				}
+				// Gather some data on what the user selected
+				mRageFaceId = (int) mAdapter.getItemId(position);
+				mRageFaceUri = loadRageFace((String) mAdapter.getItem(position));
+
+				// Show dialog with action options to user
+				showDialog(DIALOG_ACTIONS);
 			}
 		});
 
@@ -107,6 +120,7 @@ public class RageFacePickerActivity extends Activity {
 		}
 
 		if (savedInstanceState != null && savedInstanceState.containsKey(STATE_RAGEFACE_URI)) {
+			mRageFaceId = savedInstanceState.getInt(STATE_RAGEFACE_ID);
 			mRageFaceUri = savedInstanceState.getParcelable(STATE_RAGEFACE_URI);
 		}
 	}
@@ -116,6 +130,7 @@ public class RageFacePickerActivity extends Activity {
 		super.onSaveInstanceState(outState);
 
 		if (mRageFaceUri != null) {
+			outState.putInt(STATE_RAGEFACE_ID, mRageFaceId);
 			outState.putParcelable(STATE_RAGEFACE_URI, mRageFaceUri);
 		}
 	}
@@ -185,24 +200,20 @@ public class RageFacePickerActivity extends Activity {
 		return new File(Environment.getExternalStorageDirectory(), RAGE_DIR);
 	}
 
-	private void sendRageFace(Uri rageFaceUri) {
-		// First, test to see if there is a SEND_MSG intent.  If there is
-		// it means we're on an asshole HTC Sense machine, and have to give
-		// the user an explicit option to send via Messaging or some other app.
-
+	/**
+	 * This tests to see if there is a SEND_MSG intent.  If there is,
+	 * it means we're on an asshole HTC Sense machine, and have to give
+	 * the user an explicit option to send via Messaging or some other app.
+	 * @return
+	 */
+	private boolean hasSenseMessagingApp(Uri rageFaceUri) {
 		Intent dummy = new Intent("android.intent.action.SEND_MSG");
 		dummy.putExtra(Intent.EXTRA_STREAM, rageFaceUri);
 		dummy.setType("image/png");
 
 		PackageManager packageManager = getPackageManager();
 		List<ResolveInfo> list = packageManager.queryIntentActivities(dummy, PackageManager.MATCH_DEFAULT_ONLY);
-		if (list.size() > 0) {
-			mRageFaceUri = rageFaceUri;
-			showDialog(DIALOG_MSG_SHARE);
-		}
-		else {
-			shareRageFace(rageFaceUri);
-		}
+		return list.size() > 0;
 	}
 
 	private void shareRageFaceSenseMessaging(Uri rageFaceUri) {
@@ -242,24 +253,52 @@ public class RageFacePickerActivity extends Activity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
-		case DIALOG_MSG_SHARE: {
-			Builder builder = new Builder(this);
-			builder.setTitle(R.string.dialog_chooser_title);
-			builder.setItems(R.array.chooser_options, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					if (which == 0) {
+		case DIALOG_ACTIONS: {
+			// First, determine which items we will show to the user
+			ArrayList<String> items = new ArrayList<String>();
+			final ArrayList<DialogAction> actions = new ArrayList<DialogAction>();
+
+			// Standard share option
+			items.add(getString(R.string.dialog_actions_opt_share));
+			actions.add(new DialogAction() {
+				public void doAction() {
+					shareRageFace(mRageFaceUri);
+				}
+			});
+
+			// If the user has Sense messaging, that option
+			if (hasSenseMessagingApp(mRageFaceUri)) {
+				items.add(getString(R.string.dialog_actions_opt_share_sense));
+				actions.add(new DialogAction() {
+					public void doAction() {
 						shareRageFaceSenseMessaging(mRageFaceUri);
 					}
-					else {
-						shareRageFace(mRageFaceUri);
-					}
+				});
+			}
+
+			// View the face full screen
+			items.add(getString(R.string.dialog_actions_opt_view));
+			actions.add(new DialogAction() {
+				public void doAction() {
+					Intent intent = new Intent(mContext, RageFaceViewerActivity.class);
+					intent.putExtra(RageFaceViewerActivity.EXTRA_FACE_ID, mRageFaceId);
+					startActivity(intent);
+				}
+			});
+
+			Builder builder = new Builder(this);
+			builder.setTitle(R.string.dialog_actions_title);
+			builder.setItems(items.toArray(new String[0]), new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					actions.get(which).doAction();
+					removeDialog(DIALOG_ACTIONS);
 				}
 			});
 			builder.setOnCancelListener(new OnCancelListener() {
 				@Override
 				public void onCancel(DialogInterface dialog) {
-					removeDialog(DIALOG_MSG_SHARE);
+					removeDialog(DIALOG_ACTIONS);
 				}
 			});
 			return builder.create();
@@ -296,5 +335,10 @@ public class RageFacePickerActivity extends Activity {
 		}
 
 		return super.onCreateDialog(id);
+	}
+
+	// This is for making it easier to associate each dialog option with an action
+	private interface DialogAction {
+		public void doAction();
 	}
 }
