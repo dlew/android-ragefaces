@@ -7,6 +7,9 @@
     <string name="dialog_actions_opt_share">Share</string>
     <string name="dialog_actions_opt_share_sense">Send via Messaging</string>
     <string name="dialog_actions_opt_view">View Face</string>
+    <string name="dialog_actions_opt_add_to_gallery">Add to Gallery</string>
+    
+    <string name="added_face_to_gallery_toast">Face added to the gallery!</string>
 
     <!-- About dialog -->
     <string name="about">About</string>

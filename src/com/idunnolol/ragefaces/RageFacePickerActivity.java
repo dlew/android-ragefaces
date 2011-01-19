@@ -44,9 +44,11 @@ public class RageFacePickerActivity extends Activity {
 
 	// Where files go for sharing with other apps
 	private static final String RAGE_DIR = "com.idunnolol.rageface/";
+	private static final String PUBLIC_RAGE_DIR = "Rage Faces/";
 
 	// For keeping state between configuration changes
 	private static final String STATE_RAGEFACE_ID = "STATE_RAGEFACE_ID";
+	private static final String STATE_RAGEFACE_NAME = "STATE_RAGEFACE_NAME";
 	private static final String STATE_RAGEFACE_URI = "STATE_RAGEFACE_URI";
 
 	// Dialog codes
@@ -68,6 +70,7 @@ public class RageFacePickerActivity extends Activity {
 
 	// When dialog is opened, rage face data stored here
 	private int mRageFaceId;
+	private String mRageFaceName;
 	private Uri mRageFaceUri;
 
 	@Override
@@ -103,7 +106,8 @@ public class RageFacePickerActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// Gather some data on what the user selected
 				mRageFaceId = (int) mAdapter.getItemId(position);
-				mRageFaceUri = loadRageFace((String) mAdapter.getItem(position));
+				mRageFaceName = (String) mAdapter.getItem(position);
+				mRageFaceUri = loadRageFace(mRageFaceName, false);
 
 				// Show dialog with action options to user
 				showDialog(DIALOG_ACTIONS);
@@ -121,6 +125,7 @@ public class RageFacePickerActivity extends Activity {
 
 		if (savedInstanceState != null && savedInstanceState.containsKey(STATE_RAGEFACE_URI)) {
 			mRageFaceId = savedInstanceState.getInt(STATE_RAGEFACE_ID);
+			mRageFaceName = savedInstanceState.getString(STATE_RAGEFACE_NAME);
 			mRageFaceUri = savedInstanceState.getParcelable(STATE_RAGEFACE_URI);
 		}
 	}
@@ -131,6 +136,7 @@ public class RageFacePickerActivity extends Activity {
 
 		if (mRageFaceUri != null) {
 			outState.putInt(STATE_RAGEFACE_ID, mRageFaceId);
+			outState.putString(STATE_RAGEFACE_NAME, mRageFaceName);
 			outState.putParcelable(STATE_RAGEFACE_URI, mRageFaceUri);
 		}
 	}
@@ -160,18 +166,33 @@ public class RageFacePickerActivity extends Activity {
 			}
 		}
 
+		File picturesDir = new File(Environment.getExternalStorageDirectory(), "Pictures/");
+		if (!picturesDir.exists()) {
+			Log.d(TAG, "Pictures media directory does not exist, creating it.");
+			picturesDir.mkdir();
+		}
+
+		File publicRageDir = getPublicRageDir();
+		if (!publicRageDir.exists()) {
+			Log.d(TAG, "Public rage face directory does not exist, creating it.");
+			publicRageDir.mkdir();
+		}
+
 		return true;
 	}
 
 	// Loads a rage face to the SD card, if it is not already there
 	// Returns the URI for it
-	private Uri loadRageFace(String name) {
+	private Uri loadRageFace(String name, boolean isPublic) {
 		if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 			Toast.makeText(mContext, getString(R.string.err_sd_not_mounted), Toast.LENGTH_LONG).show();
 			return null;
 		}
 
-		File rageDir = getRageDir();
+		// Just in case, can't hurt.
+		loadRageFacesDir();
+
+		File rageDir = (isPublic) ? getPublicRageDir() : getRageDir();
 		File rageFaceFile = new File(rageDir, name + ".png");
 		if (!rageFaceFile.exists()) {
 			// File doesn't exist, copy it in
@@ -193,11 +214,21 @@ public class RageFacePickerActivity extends Activity {
 			}
 		}
 
+		// If this was loaded to be public, do a media scan now to load it into the gallery
+		if (isPublic) {
+			RageFaceMediaScanner mediaScanner = new RageFaceMediaScanner(this, rageFaceFile.getAbsolutePath());
+			mediaScanner.doScan();
+		}
+
 		return Uri.fromFile(rageFaceFile);
 	}
 
 	private File getRageDir() {
 		return new File(Environment.getExternalStorageDirectory(), RAGE_DIR);
+	}
+
+	private File getPublicRageDir() {
+		return new File(Environment.getExternalStorageDirectory(), "Pictures/" + PUBLIC_RAGE_DIR);
 	}
 
 	/**
@@ -283,6 +314,14 @@ public class RageFacePickerActivity extends Activity {
 					Intent intent = new Intent(mContext, RageFaceViewerActivity.class);
 					intent.putExtra(RageFaceViewerActivity.EXTRA_FACE_ID, mRageFaceId);
 					startActivity(intent);
+				}
+			});
+
+			// Add the face to the gallery
+			items.add(getString(R.string.dialog_actions_opt_add_to_gallery));
+			actions.add(new DialogAction() {
+				public void doAction() {
+					loadRageFace(mRageFaceName, true);
 				}
 			});
 
