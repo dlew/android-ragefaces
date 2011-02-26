@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="face_dimen">150dp</dimen>
+	<dimen name="face_colwidth">160dp</dimen>
+</resources>

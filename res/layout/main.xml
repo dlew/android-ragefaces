@@ -15,7 +15,7 @@
 
 	<!-- The GridView for displaying rage faces -->
 	<GridView android:id="@+id/GridView" android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:columnWidth="90dp"
+		android:layout_height="fill_parent" android:columnWidth="@dimen/face_colwidth"
 		android:numColumns="auto_fit" android:verticalSpacing="10dp"
 		android:horizontalSpacing="10dp" android:stretchMode="columnWidth"
 		android:gravity="center" android:cacheColorHint="@android:color/white"
