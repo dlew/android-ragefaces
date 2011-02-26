@@ -33,10 +33,10 @@ public class RageFaceMediaScanner implements MediaScannerConnectionClient {
 			@Override
 			public void run() {
 				Toast.makeText(mActivity, R.string.added_face_to_gallery_toast, Toast.LENGTH_LONG).show();
+				mActivity = null;
 			}
 		});
 
 		mConn.disconnect();
-		mActivity = null;
 	}
 }
