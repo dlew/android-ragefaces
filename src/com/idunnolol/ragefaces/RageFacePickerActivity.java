@@ -109,8 +109,17 @@ public class RageFacePickerActivity extends Activity {
 				mRageFaceName = (String) mAdapter.getItem(position);
 				mRageFaceUri = loadRageFace(mRageFaceName, false);
 
-				// Show dialog with action options to user
-				showDialog(DIALOG_ACTIONS);
+				Intent intent = getIntent();
+				if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)) {
+					Intent data = new Intent();
+					data.setData(mRageFaceUri);
+					setResult(RESULT_OK, data);
+					finish();
+				}
+				else {
+					// Default - show dialog with action options to user
+					showDialog(DIALOG_ACTIONS);
+				}
 			}
 		});
 
