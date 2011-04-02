@@ -12,17 +12,19 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,11 +33,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class RageFacePickerActivity extends Activity {
 
@@ -113,6 +115,11 @@ public class RageFacePickerActivity extends Activity {
 				if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)) {
 					Intent data = new Intent();
 					data.setData(mRageFaceUri);
+
+					// #18: This is needed for the picture frame widget, which depends on
+					// the face being passed as a Parcelable Bitmap as "data"
+					data.putExtra("data", BitmapFactory.decodeResource(getResources(), mRageFaceId));
+
 					setResult(RESULT_OK, data);
 					finish();
 				}
