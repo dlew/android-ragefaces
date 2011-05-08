@@ -14,7 +14,7 @@ public class RageFaceViewerActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		Intent intent = getIntent();
-		int faceId = intent.getIntExtra(EXTRA_FACE_ID, R.raw.rage_originalrage);
+		int faceId = intent.getIntExtra(EXTRA_FACE_ID, R.raw.rage_original);
 
 		setContentView(R.layout.viewer);
 
