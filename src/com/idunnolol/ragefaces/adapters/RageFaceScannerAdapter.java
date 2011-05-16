@@ -1,25 +1,41 @@
-package com.idunnolol.ragefaces;
+package com.idunnolol.ragefaces.adapters;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-public class RageFaceAdapter extends BaseAdapter {
+import com.idunnolol.ragefaces.R;
+import com.idunnolol.ragefaces.RageFacesApp;
+
+public class RageFaceScannerAdapter extends BaseAdapter implements RawRetriever {
 
 	private LayoutInflater mInflater;
 
 	private Map<String, Integer> mRageFaces;
 	private String[] mRageFacesOrdered;
 
-	public RageFaceAdapter(Context context, Map<String, Integer> rageFaces) {
+	public RageFaceScannerAdapter(Context context) {
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mRageFaces = rageFaces;
+
+		// Use reflection to make a list of all rage faces contained in /res/raw/
+		mRageFaces = new HashMap<String, Integer>();
+		for (Field field : R.raw.class.getFields()) {
+			try {
+				mRageFaces.put(field.getName(), field.getInt(null));
+			}
+			catch (Exception e) {
+				Log.e(RageFacesApp.TAG, "HOW DID THIS HAPPEN FFFFUUUUU", e);
+			}
+		}
 
 		// Setup a specific ordering for the faces
 		int numFaces = mRageFaces.size();
@@ -61,5 +77,10 @@ public class RageFaceAdapter extends BaseAdapter {
 		imageView.setImageResource(mRageFaces.get(getItem(position)));
 
 		return imageView;
+	}
+
+	@Override
+	public int getRawResourceId(String drawableName) {
+		return mRageFaces.get(drawableName);
 	}
 }

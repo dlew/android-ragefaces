@@ -5,11 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
@@ -33,10 +30,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.idunnolol.ragefaces.adapters.RageFaceScannerAdapter;
+import com.idunnolol.ragefaces.adapters.RawRetriever;
 
 public class RageFacePickerActivity extends Activity {
 
@@ -57,9 +58,7 @@ public class RageFacePickerActivity extends Activity {
 	private Context mContext;
 	private Resources mResources;
 
-	private Map<String, Integer> mRageFaces;
-
-	private RageFaceAdapter mAdapter;
+	private BaseAdapter mAdapter;
 
 	// Cached views 
 	private LinearLayout mLoadingContainer;
@@ -83,19 +82,8 @@ public class RageFacePickerActivity extends Activity {
 		mMessageView = (TextView) findViewById(R.id.Message);
 		mGridView = (GridView) findViewById(R.id.GridView);
 
-		// Use reflection to make a list of all rage faces contained in /res/raw/
-		mRageFaces = new HashMap<String, Integer>();
-		for (Field field : R.raw.class.getFields()) {
-			try {
-				mRageFaces.put(field.getName(), field.getInt(null));
-			}
-			catch (Exception e) {
-				Log.e(RageFacesApp.TAG, "HOW DID THIS HAPPEN FFFFUUUUU", e);
-			}
-		}
-
 		// Create an adapter
-		mAdapter = new RageFaceAdapter(this, mRageFaces);
+		mAdapter = new RageFaceScannerAdapter(this);
 
 		// Apply adapter to gridview
 		mGridView.setAdapter(mAdapter);
@@ -209,7 +197,8 @@ public class RageFacePickerActivity extends Activity {
 		if (!rageFaceFile.exists()) {
 			// File doesn't exist, copy it in
 			try {
-				InputStream in = mResources.openRawResource(mRageFaces.get(name));
+				RawRetriever retriever = (RawRetriever) mAdapter;
+				InputStream in = mResources.openRawResource(retriever.getRawResourceId(name));
 				OutputStream out = new FileOutputStream(rageFaceFile);
 				byte[] buffer = new byte[1024];
 				int length;
