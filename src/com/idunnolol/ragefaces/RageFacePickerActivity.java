@@ -40,9 +40,6 @@ import android.widget.Toast;
 
 public class RageFacePickerActivity extends Activity {
 
-	// Logging tag
-	private static final String TAG = "rageface";
-
 	// Where files go for sharing with other apps
 	private static final String RAGE_DIR = "com.idunnolol.rageface/";
 	private static final String PUBLIC_RAGE_DIR = "Rage Faces/";
@@ -93,7 +90,7 @@ public class RageFacePickerActivity extends Activity {
 				mRageFaces.put(field.getName(), field.getInt(null));
 			}
 			catch (Exception e) {
-				Log.e(TAG, "HOW DID THIS HAPPEN FFFFUUUUU", e);
+				Log.e(RageFacesApp.TAG, "HOW DID THIS HAPPEN FFFFUUUUU", e);
 			}
 		}
 
@@ -164,18 +161,18 @@ public class RageFacePickerActivity extends Activity {
 
 		File rageDir = getRageDir();
 		if (!rageDir.exists()) {
-			Log.d(TAG, "Rage face directory does not exist, creating it.");
+			Log.d(RageFacesApp.TAG, "Rage face directory does not exist, creating it.");
 			rageDir.mkdir();
 		}
 
 		File nomediaFile = new File(rageDir, ".nomedia");
 		if (!nomediaFile.exists()) {
-			Log.d(TAG, ".nomedia file does not exist, creating it.");
+			Log.d(RageFacesApp.TAG, ".nomedia file does not exist, creating it.");
 			try {
 				nomediaFile.createNewFile();
 			}
 			catch (IOException e) {
-				Log.e(TAG, "Could not create .nomedia file", e);
+				Log.e(RageFacesApp.TAG, "Could not create .nomedia file", e);
 				mMessageView.setText(R.string.err_loading);
 				return false;
 			}
@@ -183,13 +180,13 @@ public class RageFacePickerActivity extends Activity {
 
 		File picturesDir = new File(Environment.getExternalStorageDirectory(), "Pictures/");
 		if (!picturesDir.exists()) {
-			Log.d(TAG, "Pictures media directory does not exist, creating it.");
+			Log.d(RageFacesApp.TAG, "Pictures media directory does not exist, creating it.");
 			picturesDir.mkdir();
 		}
 
 		File publicRageDir = getPublicRageDir();
 		if (!publicRageDir.exists()) {
-			Log.d(TAG, "Public rage face directory does not exist, creating it.");
+			Log.d(RageFacesApp.TAG, "Public rage face directory does not exist, creating it.");
 			publicRageDir.mkdir();
 		}
 
@@ -223,7 +220,7 @@ public class RageFacePickerActivity extends Activity {
 				in.close();
 			}
 			catch (IOException e) {
-				Log.e(TAG, "Could not copy ragefaces file " + name + ".png", e);
+				Log.e(RageFacesApp.TAG, "Could not copy ragefaces file " + name + ".png", e);
 				Toast.makeText(mContext, getString(R.string.err_load_face), Toast.LENGTH_LONG).show();
 				return null;
 			}
@@ -367,7 +364,7 @@ public class RageFacePickerActivity extends Activity {
 			}
 			catch (Exception e) {
 				// PackageManager is traditionally wonky, need to accept all exceptions here.
-				Log.w(TAG, "Couldn't get package info in order to show version #!", e);
+				Log.w(RageFacesApp.TAG, "Couldn't get package info in order to show version #!", e);
 				versionName = "";
 			}
 
