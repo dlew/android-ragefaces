@@ -5,10 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -77,6 +79,7 @@ public class DatabaseHelper {
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 			Editor editor = prefs.edit();
 			editor.putInt(DB_PREFERENCE_KEY, DB_VERSION);
+			editor.commit();
 		}
 
 		return true;
@@ -93,5 +96,31 @@ public class DatabaseHelper {
 
 	private static File getDbPath(Context context) {
 		return new File(getDbDir(context), DB_NAME);
+	}
+
+	private static final String QUERY_BEGINNING = "SELECT F._id, F.drawable FROM (SELECT FC.faceId FROM FaceCategories FC, Categories C WHERE FC.categoryId == C._id ";
+	private static final String QUERY_END = " GROUP BY FC.faceId ORDER BY min(C.position) ASC) T, Faces F WHERE F._id == T.faceId";
+
+	public static Cursor getFaces(SQLiteDatabase db, List<Integer> categories) {
+		if (!db.isOpen()) {
+			return null;
+		}
+
+		if (categories == null || categories.size() == 0) {
+			return db.rawQuery(QUERY_BEGINNING + QUERY_END, null);
+		}
+		else {
+			int len = categories.size();
+			String[] selection = new String[len];
+			StringBuilder sb = new StringBuilder();
+			for (int a = 0; a < len; a++) {
+				selection[a] = categories.get(a) + "";
+				if (a > 0) {
+					sb.append(", ");
+				}
+				sb.append("?");
+			}
+			return db.rawQuery(QUERY_BEGINNING + " AND C._id IN (" + sb.toString() + ")" + QUERY_END, selection);
+		}
 	}
 }

@@ -36,8 +36,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.idunnolol.ragefaces.adapters.RageFaceDbAdapter;
 import com.idunnolol.ragefaces.adapters.RageFaceScannerAdapter;
 import com.idunnolol.ragefaces.adapters.RawRetriever;
+import com.idunnolol.ragefaces.data.DatabaseHelper;
 
 public class RageFacePickerActivity extends Activity {
 
@@ -74,6 +76,8 @@ public class RageFacePickerActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		boolean dbExists = DatabaseHelper.createOrUpdateDatabase(this);
+
 		mContext = this;
 		mResources = getResources();
 
@@ -83,7 +87,12 @@ public class RageFacePickerActivity extends Activity {
 		mGridView = (GridView) findViewById(R.id.GridView);
 
 		// Create an adapter
-		mAdapter = new RageFaceScannerAdapter(this);
+		if (dbExists) {
+			mAdapter = new RageFaceDbAdapter(this);
+		}
+		else {
+			mAdapter = new RageFaceScannerAdapter(this);
+		}
 
 		// Apply adapter to gridview
 		mGridView.setAdapter(mAdapter);
@@ -138,6 +147,16 @@ public class RageFacePickerActivity extends Activity {
 			outState.putInt(STATE_RAGEFACE_ID, mRageFaceId);
 			outState.putString(STATE_RAGEFACE_NAME, mRageFaceName);
 			outState.putParcelable(STATE_RAGEFACE_URI, mRageFaceUri);
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		// Properly close cursor if we're using db-based faces
+		if (mAdapter instanceof RageFaceDbAdapter) {
+			((RageFaceDbAdapter) mAdapter).shutdown();
 		}
 	}
 
