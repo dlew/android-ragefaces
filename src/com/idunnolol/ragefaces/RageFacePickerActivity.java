@@ -109,7 +109,8 @@ public class RageFacePickerActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// Gather some data on what the user selected
-				mRageFaceId = (int) mAdapter.getItemId(position);
+				RawRetriever retriever = (RawRetriever) mAdapter;
+				mRageFaceId = retriever.getRawResourceId((String) mAdapter.getItem(position));
 				mRageFaceName = (String) mAdapter.getItem(position);
 				mRageFaceUri = loadRageFace(mRageFaceName, false);
 
