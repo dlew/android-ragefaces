@@ -1,10 +1,12 @@
-package com.idunnolol.ragefaces;
+package com.idunnolol.ragefaces.data;
 
 import android.app.Activity;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.MediaScannerConnectionClient;
 import android.net.Uri;
 import android.widget.Toast;
+
+import com.idunnolol.ragefaces.R;
 
 public class RageFaceMediaScanner implements MediaScannerConnectionClient {
 

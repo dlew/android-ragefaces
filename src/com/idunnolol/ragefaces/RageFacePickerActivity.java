@@ -43,6 +43,7 @@ import com.idunnolol.ragefaces.adapters.RageFaceDbAdapter;
 import com.idunnolol.ragefaces.adapters.RageFaceScannerAdapter;
 import com.idunnolol.ragefaces.adapters.RawRetriever;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
+import com.idunnolol.ragefaces.data.RageFaceMediaScanner;
 
 public class RageFacePickerActivity extends Activity {
 
