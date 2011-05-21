@@ -60,6 +60,7 @@ public class RageFacePickerActivity extends Activity {
 	private static final int DIALOG_ACTIONS = 1;
 	private static final int DIALOG_ABOUT = 2;
 	private static final int DIALOG_FILTER = 3;
+	private static final int DIALOG_HELP = 4;
 
 	// Cached Activity info
 	private Context mContext;
@@ -333,10 +334,12 @@ public class RageFacePickerActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.About: {
+		case R.id.help:
+			showDialog(DIALOG_HELP);
+			return true;
+		case R.id.About:
 			showDialog(DIALOG_ABOUT);
 			return true;
-		}
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -422,6 +425,12 @@ public class RageFacePickerActivity extends Activity {
 			builder.setNegativeButton(android.R.string.cancel, null);
 			return builder.create();
 		}
+		case DIALOG_HELP: {
+			Builder builder = new Builder(this);
+			builder.setMessage(getString(R.string.help_msg));
+			builder.setNeutralButton(android.R.string.ok, null);
+			return builder.create();
+		}
 		case DIALOG_ABOUT:
 			// Try to get the version name
 			String versionName;
@@ -438,18 +447,7 @@ public class RageFacePickerActivity extends Activity {
 
 			Builder builder = new Builder(this);
 			builder.setMessage(getString(R.string.about_msg, versionName));
-			builder.setNeutralButton(android.R.string.ok, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					removeDialog(DIALOG_ABOUT);
-				}
-			});
-			builder.setOnCancelListener(new OnCancelListener() {
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					removeDialog(DIALOG_ABOUT);
-				}
-			});
+			builder.setNeutralButton(android.R.string.ok, null);
 			return builder.create();
 		}
 

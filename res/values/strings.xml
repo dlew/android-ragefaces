@@ -16,6 +16,10 @@
     <string name="dialog_filter_title">Select Category</string>
     <string name="dialog_filter_clear">Show All</string>
 
+    <!-- Help dialog -->
+	<string name="help">Help</string>
+	<string name="help_msg">Basic stuff: Click a face and then do what you want with it.\n\nTo insert a face into a current conversation:\n1. Open the menu and click \"Attach\"\n2. Click \"Pictures\"\n3. Click \"Rage Faces\"</string>
+
     <!-- About dialog -->
     <string name="about">About</string>
     <string name="about_msg">Rage Faces %s.\n\nWritten by rkcr.\n\nApp icon by TheFunkyMonk.</string>
