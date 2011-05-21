@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import com.idunnolol.ragefaces.R;
 import com.idunnolol.ragefaces.RageFacesApp;
+import com.idunnolol.ragefaces.R.raw;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
 
 public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
@@ -77,7 +78,7 @@ public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
 		}
 
 		try {
-			Class res = R.raw.class;
+			Class<raw> res = R.raw.class;
 			Field field = res.getField(name);
 			int resId = field.getInt(null);
 			mResourceIds.put(name, resId);
