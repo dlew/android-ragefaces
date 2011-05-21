@@ -123,4 +123,12 @@ public class DatabaseHelper {
 			return db.rawQuery(QUERY_BEGINNING + " AND C._id IN (" + sb.toString() + ")" + QUERY_END, selection);
 		}
 	}
+
+	public static Cursor getCategories(SQLiteDatabase db) {
+		if (!db.isOpen()) {
+			return null;
+		}
+
+		return db.query("Categories", new String[] { "_id", "category" }, null, null, null, null, "category");
+	}
 }

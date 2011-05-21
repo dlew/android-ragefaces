@@ -20,6 +20,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,6 +58,7 @@ public class RageFacePickerActivity extends Activity {
 	// Dialog codes
 	private static final int DIALOG_ACTIONS = 1;
 	private static final int DIALOG_ABOUT = 2;
+	private static final int DIALOG_FILTER = 3;
 
 	// Cached Activity info
 	private Context mContext;
@@ -71,6 +75,10 @@ public class RageFacePickerActivity extends Activity {
 	private int mRageFaceId;
 	private String mRageFaceName;
 	private Uri mRageFaceUri;
+
+	// Filter data
+	private int[] mCategoryIds;
+	private String[] mCategoryNames;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -92,6 +100,7 @@ public class RageFacePickerActivity extends Activity {
 		}
 		else {
 			mAdapter = new RageFaceScannerAdapter(this);
+			findViewById(R.id.button_bar_layout).setVisibility(View.GONE);
 		}
 
 		// Apply adapter to gridview
@@ -123,6 +132,34 @@ public class RageFacePickerActivity extends Activity {
 			}
 		});
 
+		// Configure the filter button
+		Button filterButton = (Button) findViewById(R.id.filter_button);
+		filterButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showDialog(DIALOG_FILTER);
+			}
+		});
+
+		// Configure the filter dialog backing data
+		if (dbExists) {
+			SQLiteDatabase db = DatabaseHelper.getFacesDb(this);
+			Cursor c = DatabaseHelper.getCategories(db);
+			c.moveToFirst();
+			int len = c.getCount();
+			mCategoryIds = new int[len];
+			mCategoryNames = new String[len];
+			int a = 0;
+			while (!c.isAfterLast()) {
+				mCategoryIds[a] = c.getInt(0);
+				mCategoryNames[a] = c.getString(1);
+				c.moveToNext();
+				a++;
+			}
+			c.close();
+			db.close();
+		}
+
 		// Load rage faces to SD card
 		boolean success = loadRageFacesDir();
 
@@ -132,10 +169,12 @@ public class RageFacePickerActivity extends Activity {
 			mGridView.setVisibility(View.VISIBLE);
 		}
 
-		if (savedInstanceState != null && savedInstanceState.containsKey(STATE_RAGEFACE_URI)) {
-			mRageFaceId = savedInstanceState.getInt(STATE_RAGEFACE_ID);
-			mRageFaceName = savedInstanceState.getString(STATE_RAGEFACE_NAME);
-			mRageFaceUri = savedInstanceState.getParcelable(STATE_RAGEFACE_URI);
+		if (savedInstanceState != null) {
+			if (savedInstanceState.containsKey(STATE_RAGEFACE_URI)) {
+				mRageFaceId = savedInstanceState.getInt(STATE_RAGEFACE_ID);
+				mRageFaceName = savedInstanceState.getString(STATE_RAGEFACE_NAME);
+				mRageFaceUri = savedInstanceState.getParcelable(STATE_RAGEFACE_URI);
+			}
 		}
 	}
 
@@ -362,6 +401,25 @@ public class RageFacePickerActivity extends Activity {
 			});
 			return builder.create();
 		}
+		case DIALOG_FILTER: {
+			Builder builder = new Builder(this);
+			builder.setTitle(R.string.dialog_filter_title);
+			builder.setItems(mCategoryNames, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					filter(mCategoryIds[which]);
+					dismissDialog(DIALOG_FILTER);
+				}
+			});
+			builder.setNeutralButton(R.string.dialog_filter_clear, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					clearFilter();
+				}
+			});
+			builder.setNegativeButton(android.R.string.cancel, null);
+			return builder.create();
+		}
 		case DIALOG_ABOUT:
 			// Try to get the version name
 			String versionName;
@@ -394,6 +452,18 @@ public class RageFacePickerActivity extends Activity {
 		}
 
 		return super.onCreateDialog(id);
+	}
+
+	public void clearFilter() {
+		RageFaceDbAdapter adapter = (RageFaceDbAdapter) mAdapter;
+		adapter.filter(null);
+	}
+
+	public void filter(int category) {
+		List<Integer> filteredCategories = new ArrayList<Integer>();
+		filteredCategories.add(category);
+		RageFaceDbAdapter adapter = (RageFaceDbAdapter) mAdapter;
+		adapter.filter(filteredCategories);
 	}
 
 	// This is for making it easier to associate each dialog option with an action

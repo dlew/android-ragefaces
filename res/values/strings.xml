@@ -11,6 +11,11 @@
     
     <string name="added_face_to_gallery_toast">Face added to the gallery!</string>
 
+    <!-- Filters -->
+    <string name="filter">Filter</string>
+    <string name="dialog_filter_title">Select Category</string>
+    <string name="dialog_filter_clear">Show All</string>
+
     <!-- About dialog -->
     <string name="about">About</string>
     <string name="about_msg">Rage Faces %s.\n\nWritten by rkcr.\n\nApp icon by TheFunkyMonk.</string>

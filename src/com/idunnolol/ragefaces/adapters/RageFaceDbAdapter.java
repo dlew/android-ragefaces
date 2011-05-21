@@ -2,6 +2,7 @@ package com.idunnolol.ragefaces.adapters;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -30,8 +31,9 @@ public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
 	public RageFaceDbAdapter(Context context) {
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mDb = DatabaseHelper.getFacesDb(context);
-		mCursor = DatabaseHelper.getFaces(mDb, null);
 		mResourceIds = new HashMap<String, Integer>();
+
+		filter(null);
 	}
 
 	@Override
@@ -85,6 +87,15 @@ public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
 			Log.e(RageFacesApp.TAG, "Failure to get raw id.", e);
 			return -1;
 		}
+	}
+
+	public void filter(List<Integer> categories) {
+		if (mCursor != null && !mCursor.isClosed()) {
+			mCursor.close();
+		}
+
+		mCursor = DatabaseHelper.getFaces(mDb, categories);
+		notifyDataSetChanged();
 	}
 
 	public void shutdown() {
