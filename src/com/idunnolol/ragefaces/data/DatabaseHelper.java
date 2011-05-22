@@ -98,8 +98,8 @@ public class DatabaseHelper {
 		return new File(getDbDir(context), DB_NAME);
 	}
 
-	private static final String QUERY_BEGINNING = "SELECT F._id, F.drawable FROM (SELECT FC.faceId FROM FaceCategories FC, Categories C WHERE FC.categoryId == C._id ";
-	private static final String QUERY_END = " GROUP BY FC.faceId ORDER BY min(C.position) ASC) T, Faces F WHERE F._id == T.faceId";
+	private static final String QUERY_BEGINNING = "SELECT F._id, F.drawable FROM (SELECT FC.faceId, min(C.position) as pos FROM FaceCategories FC, Categories C WHERE FC.categoryId == C._id ";
+	private static final String QUERY_END = " GROUP BY FC.faceId ORDER BY pos ASC) T, Faces F WHERE F._id == T.faceId ORDER BY T.pos ASC, F.drawable";
 
 	public static Cursor getFaces(SQLiteDatabase db, List<Integer> categories) {
 		if (!db.isOpen()) {
