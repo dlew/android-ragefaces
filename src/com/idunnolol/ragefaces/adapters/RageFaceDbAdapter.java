@@ -33,8 +33,6 @@ public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mDb = DatabaseHelper.getFacesDb(context);
 		mResourceIds = new HashMap<String, Integer>();
-
-		filter(null);
 	}
 
 	@Override

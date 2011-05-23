@@ -55,6 +55,7 @@ public class RageFacePickerActivity extends Activity {
 	private static final String STATE_RAGEFACE_ID = "STATE_RAGEFACE_ID";
 	private static final String STATE_RAGEFACE_NAME = "STATE_RAGEFACE_NAME";
 	private static final String STATE_RAGEFACE_URI = "STATE_RAGEFACE_URI";
+	private static final String STATE_FILTER_CATEGORY = "STATE_FILTER_CATEGORY";
 
 	// Dialog codes
 	private static final int DIALOG_ACTIONS = 1;
@@ -81,6 +82,7 @@ public class RageFacePickerActivity extends Activity {
 	// Filter data
 	private int[] mCategoryIds;
 	private String[] mCategoryNames;
+	private int mFilterCategory;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -96,9 +98,23 @@ public class RageFacePickerActivity extends Activity {
 		mMessageView = (TextView) findViewById(R.id.Message);
 		mGridView = (GridView) findViewById(R.id.GridView);
 
+		if (savedInstanceState != null) {
+			mFilterCategory = savedInstanceState.getInt(STATE_FILTER_CATEGORY, -1);
+
+			if (savedInstanceState.containsKey(STATE_RAGEFACE_URI)) {
+				mRageFaceId = savedInstanceState.getInt(STATE_RAGEFACE_ID);
+				mRageFaceName = savedInstanceState.getString(STATE_RAGEFACE_NAME);
+				mRageFaceUri = savedInstanceState.getParcelable(STATE_RAGEFACE_URI);
+			}
+		}
+		else {
+			mFilterCategory = -1;
+		}
+
 		// Create an adapter
 		if (dbExists) {
 			mAdapter = new RageFaceDbAdapter(this);
+			filter(mFilterCategory);
 		}
 		else {
 			mAdapter = new RageFaceScannerAdapter(this);
@@ -171,19 +187,13 @@ public class RageFacePickerActivity extends Activity {
 			mLoadingContainer.setVisibility(View.GONE);
 			mGridView.setVisibility(View.VISIBLE);
 		}
-
-		if (savedInstanceState != null) {
-			if (savedInstanceState.containsKey(STATE_RAGEFACE_URI)) {
-				mRageFaceId = savedInstanceState.getInt(STATE_RAGEFACE_ID);
-				mRageFaceName = savedInstanceState.getString(STATE_RAGEFACE_NAME);
-				mRageFaceUri = savedInstanceState.getParcelable(STATE_RAGEFACE_URI);
-			}
-		}
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+
+		outState.putInt(STATE_FILTER_CATEGORY, mFilterCategory);
 
 		if (mRageFaceUri != null) {
 			outState.putInt(STATE_RAGEFACE_ID, mRageFaceId);
@@ -455,15 +465,20 @@ public class RageFacePickerActivity extends Activity {
 	}
 
 	public void clearFilter() {
-		RageFaceDbAdapter adapter = (RageFaceDbAdapter) mAdapter;
-		adapter.filter(null);
+		filter(-1);
 	}
 
 	public void filter(int category) {
-		List<Integer> filteredCategories = new ArrayList<Integer>();
-		filteredCategories.add(category);
+		List<Integer> filteredCategories = null;
+		if (category != -1) {
+			filteredCategories = new ArrayList<Integer>();
+			filteredCategories.add(category);
+		}
 		RageFaceDbAdapter adapter = (RageFaceDbAdapter) mAdapter;
 		adapter.filter(filteredCategories);
+
+		// Setup history for what the last filter was
+		mFilterCategory = category;
 	}
 
 	// This is for making it easier to associate each dialog option with an action
