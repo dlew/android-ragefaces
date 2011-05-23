@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -464,6 +465,14 @@ public class RageFacePickerActivity extends Activity {
 		return super.onCreateDialog(id);
 	}
 
+	// This is for making it easier to associate each dialog option with an action
+	private interface DialogAction {
+		public void doAction();
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	// Filter stuff
+
 	public void clearFilter() {
 		filter(-1);
 	}
@@ -481,8 +490,14 @@ public class RageFacePickerActivity extends Activity {
 		mFilterCategory = category;
 	}
 
-	// This is for making it easier to associate each dialog option with an action
-	private interface DialogAction {
-		public void doAction();
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// If there is a filter active and the user clicks the "back" button, clear the filter
+		// instead of backing out of the activity.
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 && mFilterCategory != -1) {
+			clearFilter();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
