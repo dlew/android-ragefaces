@@ -14,4 +14,14 @@ If you want to add your own faces, they must be:
 
 2. Placed into the /res/raw/ directory.
 
-The app will automatically pick up and use any faces added in this manner.
+There are two ways in which Rage Faces finds faces: simple mode, and db mode.
+Simple mode is, as it sounds, quite simple; it allows ones to add faces
+quickly and easily, but gives you little control over the display order
+or filtering.  Db mode uses a database to allow more control over the
+faces, in particular adding simplistic category ordering and filtering.
+
+To use simple mode, simply ensure that assets/faces.db is deleted.  The app
+will just scan /res/raw/ and grab all PNGs from that directory.
+
+To use db mode, make sure that assets/faces.db exists and link the faces
+in /res/raw/ to ids in the db.
