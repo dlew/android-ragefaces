@@ -22,7 +22,6 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -137,11 +136,6 @@ public class RageFacePickerActivity extends Activity {
 				if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)) {
 					Intent data = new Intent();
 					data.setData(mRageFaceUri);
-
-					// #18: This is needed for the picture frame widget, which depends on
-					// the face being passed as a Parcelable Bitmap as "data"
-					data.putExtra("data", BitmapFactory.decodeResource(getResources(), mRageFaceId));
-
 					setResult(RESULT_OK, data);
 					finish();
 				}
