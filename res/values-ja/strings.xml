@@ -22,7 +22,7 @@
 
     <!-- About dialog -->
     <string name="about">情報</string>
-    <string name="about_msg">Rage Faces %s.\n\n開発者：rkcr.\n\nアイコン画家：TheFunkyMonk.\n\nテスター: mystikalghost</string>
+    <string name="about_msg">Rage Faces %s.\n\n開発者：rkcr.\n\nアイコン画家：TheFunkyMonk.\n\nテスター: mystikalghost\n\n翻訳者：nivekmai</string>
 
     <!-- Error strings -->
     <string name="err_sd_not_mounted">SDカードをマウントして・問題カイ？</string>
