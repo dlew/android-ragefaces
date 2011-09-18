@@ -133,7 +133,7 @@ public class RageFacePickerActivity extends Activity {
 				mRageFaceUri = loadRageFace(mRageFaceName, false);
 
 				Intent intent = getIntent();
-				if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)) {
+				if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)||intent.getAction().equals(Intent.ACTION_PICK)) {
 					Intent data = new Intent();
 					data.setData(mRageFaceUri);
 					setResult(RESULT_OK, data);
