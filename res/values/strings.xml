@@ -1,31 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!-- The name of the app -->
     <string name="app_name">Rage Faces</string>
     
     <!-- Actions dialog -->
+    <!-- Title for dialog that pops up when you click on a face.  (This does not have to be directly translated, it is a joke) -->
     <string name="dialog_actions_title">WHAT DO?</string>
+    <!-- Dialog option for sharing a face -->
     <string name="dialog_actions_opt_share">Share</string>
+    <!-- Dialog option for sharing a face (when the user has the HTC Sense "Messaging" app) -->
     <string name="dialog_actions_opt_share_sense">Send via Messaging</string>
+    <!-- Dialog option to view the face in the app -->
     <string name="dialog_actions_opt_view">View Face</string>
+    <!-- Dialog option to add the face to the Gallery -->
     <string name="dialog_actions_opt_add_to_gallery">Add to Gallery</string>
     
+    <!-- Toast popup notification when successfully added a rage face to the Gallery -->
     <string name="added_face_to_gallery_toast">Face added to the gallery!</string>
 
     <!-- Filters -->
+    <!-- Label for button to activate a filter -->
     <string name="filter">Filter</string>
+    <!-- Title for filter dialog -->
     <string name="dialog_filter_title">Select Category</string>
+    <!-- Filter dialog button that shows all faces (clears the filter) -->
     <string name="dialog_filter_clear">Show All</string>
     <!-- Help dialog -->
 	<string name="help">Help</string>
+	<!-- Help dialog contents -->
 	<string name="help_msg">Basic stuff: Click a face and then do what you want with it.\n\nTo insert a face into a current conversation:\n1. Open the menu and click \"Attach\"\n2. Click \"Pictures\"\n3. Click \"Rage Faces\"</string>
 
     <!-- About dialog -->
+    <!-- Label for menu option "About" -->
     <string name="about">About</string>
+    <!-- "About" dialog contents -->
     <string name="about_msg">Rage Faces %s.\n\nWritten by rkcr.\n\nApp icon by TheFunkyMonk.\n\nTest helper: mystikalghost</string>
 
     <!-- Error strings -->
+    <!-- Error message shown to user when the SD card is not mounted -->
     <string name="err_sd_not_mounted">SD card must be mounted to use Rage Faces - problem?</string>
+    <!-- Generic error given when we couldn't initialize the app for some reason -->
     <string name="err_loading">Could not initialize rage face app - problem?</string>
+    <!-- Error when we cannot share a face with another app due to SD card errors -->
     <string name="err_load_face">Could not load rage face onto SD card - problem?</string>
 
 	<!-- Labels for categories -->
