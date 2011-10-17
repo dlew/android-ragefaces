@@ -44,6 +44,7 @@ import com.idunnolol.ragefaces.adapters.RageFaceScannerAdapter;
 import com.idunnolol.ragefaces.adapters.RawRetriever;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
 import com.idunnolol.ragefaces.data.RageFaceMediaScanner;
+import com.idunnolol.ragefaces.utils.ResourceUtils;
 
 public class RageFacePickerActivity extends Activity {
 
@@ -166,7 +167,7 @@ public class RageFacePickerActivity extends Activity {
 			int a = 0;
 			while (!c.isAfterLast()) {
 				mCategoryIds[a] = c.getInt(0);
-				mCategoryNames[a] = c.getString(1);
+				mCategoryNames[a] = getString(ResourceUtils.getResourceId(R.string.class, c.getString(1)));
 				c.moveToNext();
 				a++;
 			}

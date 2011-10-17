@@ -15,7 +15,6 @@
     <string name="filter">Filter</string>
     <string name="dialog_filter_title">Select Category</string>
     <string name="dialog_filter_clear">Show All</string>
-
     <!-- Help dialog -->
 	<string name="help">Help</string>
 	<string name="help_msg">Basic stuff: Click a face and then do what you want with it.\n\nTo insert a face into a current conversation:\n1. Open the menu and click \"Attach\"\n2. Click \"Pictures\"\n3. Click \"Rage Faces\"</string>
@@ -28,4 +27,87 @@
     <string name="err_sd_not_mounted">SD card must be mounted to use Rage Faces - problem?</string>
     <string name="err_loading">Could not initialize rage face app - problem?</string>
     <string name="err_load_face">Could not load rage face onto SD card - problem?</string>
+
+	<!-- Labels for categories -->
+	<!-- Category label for "Troll" -->
+	<string name="category_troll">Troll</string>
+	<!-- Category label for "Female" -->
+	<string name="category_female">Female</string>
+	<!-- Category label for "Rage" -->
+	<string name="category_rage">Rage</string>
+	<!-- Category label for "Thinking" -->
+	<string name="category_thinking">Thinking</string>
+	<!-- Category label for "Forever Alone" -->
+	<string name="category_forever_alone">Forever Alone</string>
+	<!-- Category label for "Angry" -->
+	<string name="category_angry">Angry</string>
+	<!-- Category label for "Victory" -->
+	<string name="category_victory">Victory</string>
+	<!-- Category label for "Me Gusta" -->
+	<string name="category_me_gusta">Me Gusta</string>
+	<!-- Category label for "Tears" -->
+	<string name="category_tears">Tears</string>
+	<!-- Category label for "Trees" -->
+	<string name="category_trees">Trees</string>
+	<!-- Category label for "Laughing" -->
+	<string name="category_laughing">Laughing</string>
+	<!-- Category label for "Animal" -->
+	<string name="category_animal">Animal</string>
+	<!-- Category label for "Pleasure" -->
+	<string name="category_pleasure">Pleasure</string>
+	<!-- Category label for "Poker Face" -->
+	<string name="category_poker_face">Poker Face</string>
+	<!-- Category label for "Okay" -->
+	<string name="category_okay">Okay</string>
+	<!-- Category label for "Male" -->
+	<string name="category_male">Male</string>
+	<!-- Category label for "Stick Figure" -->
+	<string name="category_stick_figure">Stick Figure</string>
+	<!-- Category label for "Surprised" -->
+	<string name="category_surprised">Surprised</string>
+	<!-- Category label for "Happy" -->
+	<string name="category_happy">Happy</string>
+	<!-- Category label for "Dad" -->
+	<string name="category_dad">Dad</string>
+	<!-- Category label for "Reddit" -->
+	<string name="category_reddit">Reddit</string>
+	<!-- Category label for "Seriously?" -->
+	<string name="category_seriously">Seriously?</string>
+	<!-- Category label for "No Text" -->
+	<string name="category_no_text">No Text</string>
+	<!-- Category label for "Challenged" -->
+	<string name="category_challenged">Challenged</string>
+	<!-- Category label for "Text" -->
+	<string name="category_text">Text</string>
+	<!-- Category label for "Horror" -->
+	<string name="category_horror">Horror</string>
+	<!-- Category label for "Drunk" -->
+	<string name="category_drunk">Drunk</string>
+	<!-- Category label for "Evil" -->
+	<string name="category_evil">Evil</string>
+	<!-- Category label for "Sad" -->
+	<string name="category_sad">Sad</string>
+	<!-- Category label for "Neutral" -->
+	<string name="category_neutral">Neutral</string>
+	<!-- Category label for "Celebrity" -->
+	<string name="category_celebrity">Celebrity</string>
+	<!-- Category label for "Fuck Yea" -->
+	<string name="category_fuck_yea">Fuck Yea</string>
+	<!-- Category label for "Cereal" -->
+	<string name="category_cereal">Cereal</string>
+	<!-- Category label for "Grandma" -->
+	<string name="category_grandma">Grandma</string>
+	<!-- Category label for "Inglip" -->
+	<string name="category_inglip">Inglip</string>
+	<!-- Category label for "Awe" -->
+	<string name="category_awe">Awe</string>
+	<!-- Category label for "Disappointed" -->
+	<string name="category_disappointed">Disappointed</string>
+	<!-- Category label for "Why" -->
+	<string name="category_why">Why</string>
+	<!-- Category label for "Shit" -->
+	<string name="category_shit">Shit</string>
+	<!-- Category label for "Milk" -->
+	<string name="category_milk">Milk</string>
+
 </resources>

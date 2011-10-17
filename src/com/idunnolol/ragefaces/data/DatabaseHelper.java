@@ -20,7 +20,7 @@ import com.idunnolol.ragefaces.RageFacesApp;
 public class DatabaseHelper {
 
 	// Increase this number to cause a DB update
-	private static final int DB_VERSION = 3;
+	private static final int DB_VERSION = 4;
 
 	private static final String DB_NAME = "faces.db";
 

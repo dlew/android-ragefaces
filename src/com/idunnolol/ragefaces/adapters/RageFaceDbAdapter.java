@@ -1,13 +1,11 @@
 package com.idunnolol.ragefaces.adapters;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.idunnolol.ragefaces.R;
-import com.idunnolol.ragefaces.RageFacesApp;
-import com.idunnolol.ragefaces.R.raw;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
+import com.idunnolol.ragefaces.utils.ResourceUtils;
 
 public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
 
@@ -75,17 +72,12 @@ public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
 			return mResourceIds.get(name);
 		}
 
-		try {
-			Class<raw> res = R.raw.class;
-			Field field = res.getField(name);
-			int resId = field.getInt(null);
+		int resId = ResourceUtils.getResourceId(R.raw.class, name);
+		if (resId != -1) {
 			mResourceIds.put(name, resId);
-			return resId;
 		}
-		catch (Exception e) {
-			Log.e(RageFacesApp.TAG, "Failure to get raw id.", e);
-			return -1;
-		}
+
+		return resId;
 	}
 
 	public void filter(List<Integer> categories) {
