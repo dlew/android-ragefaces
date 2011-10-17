@@ -167,7 +167,12 @@ public class RageFacePickerActivity extends Activity {
 			int a = 0;
 			while (!c.isAfterLast()) {
 				mCategoryIds[a] = c.getInt(0);
-				mCategoryNames[a] = getString(ResourceUtils.getResourceId(R.string.class, c.getString(1)));
+				String category = c.getString(1);
+				int resId = ResourceUtils.getResourceId(R.string.class, c.getString(1));
+				if (resId != -1) {
+					category = getString(resId);
+				}
+				mCategoryNames[a] = category;
 				c.moveToNext();
 				a++;
 			}
