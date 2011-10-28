@@ -33,8 +33,11 @@
 	<!-- About dialog -->
 	<!-- Label for menu option "About" -->
 	<string name="about">About</string>
-	<!-- "About" dialog contents.  Make sure to keep "\n\n" as a newline between each section -->
-	<string name="about_msg">Rage Faces %s.\n\nWritten by rkcr.\n\nContributors: nivekmai\n\nTranslators: \n\nApp icon by TheFunkyMonk.\n\nTest helper: mystikalghost</string>
+	<!-- "About" dialog contents.  Make sure to keep "\n\n" as a newline between each section.  Be sure to leave the %1$s, %2$s, etc. in!  They are important!
+		%1$s == App version
+		%2$s == list of contributors
+		%3$s == list of translators -->
+	<string name="about_msg">Rage Faces %1$s.\n\nWritten by rkcr.\n\nContributors: %2$s\n\nTranslators: %3$s\n\nApp icon by TheFunkyMonk.\n\nTest helper: mystikalghost</string>
 	
 	<!-- Error strings -->
 	<!-- Error message shown to user when the SD card is not mounted -->

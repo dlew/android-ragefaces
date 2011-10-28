@@ -134,7 +134,8 @@ public class RageFacePickerActivity extends Activity {
 				mRageFaceUri = loadRageFace(mRageFaceName, false);
 
 				Intent intent = getIntent();
-				if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)||intent.getAction().equals(Intent.ACTION_PICK)) {
+				if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)
+						|| intent.getAction().equals(Intent.ACTION_PICK)) {
 					Intent data = new Intent();
 					data.setData(mRageFaceUri);
 					setResult(RESULT_OK, data);
@@ -456,13 +457,27 @@ public class RageFacePickerActivity extends Activity {
 				versionName = "";
 			}
 
+			String contributors = formatNameList(mResources.getStringArray(R.array.contributors));
+			String translators = formatNameList(mResources.getStringArray(R.array.translators));
+
 			Builder builder = new Builder(this);
-			builder.setMessage(getString(R.string.about_msg, versionName));
+			builder.setMessage(getString(R.string.about_msg, versionName, contributors, translators));
 			builder.setNeutralButton(android.R.string.ok, null);
 			return builder.create();
 		}
 
 		return super.onCreateDialog(id);
+	}
+
+	private String formatNameList(String[] names) {
+		StringBuilder sb = new StringBuilder();
+		for (int a = 0; a < names.length; a++) {
+			if (a > 0) {
+				sb.append(", ");
+			}
+			sb.append(names[a]);
+		}
+		return sb.toString();
 	}
 
 	// This is for making it easier to associate each dialog option with an action
