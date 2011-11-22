@@ -87,7 +87,7 @@ public class DatabaseHelper {
 
 	public static SQLiteDatabase getFacesDb(Context context) {
 		File dbPath = getDbPath(context);
-		return SQLiteDatabase.openDatabase(dbPath.getPath(), null, SQLiteDatabase.OPEN_READONLY + SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+		return SQLiteDatabase.openDatabase(dbPath.getPath(), null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
 	}
 
 	private static File getDbDir(Context context) {
