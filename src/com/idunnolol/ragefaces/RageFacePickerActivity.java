@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import android.app.Activity;
@@ -26,6 +28,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -85,6 +88,7 @@ public class RageFacePickerActivity extends Activity {
 	private String[] mCategoryNames;
 	private int mFilterCategory;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -163,22 +167,39 @@ public class RageFacePickerActivity extends Activity {
 			Cursor c = DatabaseHelper.getCategories(db);
 			c.moveToFirst();
 			int len = c.getCount();
-			mCategoryIds = new int[len];
-			mCategoryNames = new String[len];
+			Pair<String, Integer>[] categories = new Pair[len];
 			int a = 0;
 			while (!c.isAfterLast()) {
-				mCategoryIds[a] = c.getInt(0);
+				int id = c.getInt(0);
 				String category = c.getString(1);
 				int resId = ResourceUtils.getResourceId(R.string.class, c.getString(1));
 				if (resId != -1) {
 					category = getString(resId);
 				}
-				mCategoryNames[a] = category;
+
+				categories[a] = Pair.create(category, id);
+
 				c.moveToNext();
 				a++;
 			}
 			c.close();
 			db.close();
+
+			// Sort the results (sort order can change based on language)
+			Comparator<Pair<String, Integer>> sorter = new Comparator<Pair<String, Integer>>() {
+				public int compare(Pair<String, Integer> lhs, Pair<String, Integer> rhs) {
+					return lhs.first.compareTo(rhs.first);
+				}
+			};
+			Arrays.sort(categories, sorter);
+
+			// Fill the data into the category variables
+			mCategoryIds = new int[len];
+			mCategoryNames = new String[len];
+			for (a = 0; a < len; a++) {
+				mCategoryIds[a] = categories[a].second;
+				mCategoryNames[a] = categories[a].first;
+			}
 		}
 
 		// Load rage faces to SD card
