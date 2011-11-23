@@ -28,7 +28,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +45,7 @@ import com.idunnolol.ragefaces.adapters.RageFaceDbAdapter;
 import com.idunnolol.ragefaces.adapters.RageFaceScannerAdapter;
 import com.idunnolol.ragefaces.adapters.RawRetriever;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
+import com.idunnolol.ragefaces.data.Pair;
 import com.idunnolol.ragefaces.data.RageFaceMediaScanner;
 import com.idunnolol.ragefaces.utils.ResourceUtils;
 
