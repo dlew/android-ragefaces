@@ -73,7 +73,7 @@ public class RageFacePickerActivity extends Activity {
 
 	private BaseAdapter mAdapter;
 
-	// Cached views 
+	// Cached views
 	private LinearLayout mLoadingContainer;
 	private TextView mMessageView;
 	private GridView mGridView;
