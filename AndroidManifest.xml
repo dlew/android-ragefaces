@@ -18,7 +18,7 @@
 
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
-	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10" />
+	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="15" />
 
 	<application
 		android:icon="@drawable/icon"
