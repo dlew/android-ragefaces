@@ -192,7 +192,7 @@ public class RageFacePickerActivity extends Activity {
 		}
 
 		// Load rage faces to SD card
-		int errResId = ShareUtils.loadRageFacesDir();
+		int errResId = ShareUtils.loadRageFacesDir(this);
 		if (errResId == 0) {
 			mLoadingContainer.setVisibility(View.GONE);
 			mGridView.setVisibility(View.VISIBLE);

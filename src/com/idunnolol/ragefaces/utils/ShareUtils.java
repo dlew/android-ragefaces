@@ -14,6 +14,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -24,20 +25,18 @@ import com.idunnolol.ragefaces.RageFacesApp;
 
 public class ShareUtils {
 
-	// Where files go for sharing with other apps
-	private static final String RAGE_DIR = "com.idunnolol.rageface/";
-
 	/**
 	 * Loads the media drive directory where we place the rage faces for sharing.
 	 * 
 	 * @return 0 on success; otherwise returns the resId of an error message.
 	 */
-	public static int loadRageFacesDir() {
+	public static int loadRageFacesDir(Context context) {
 		if (!isMediaMounted()) {
 			return R.string.err_sd_not_mounted;
 		}
 
-		File rageDir = getRageDir();
+		File rageDir = getRageDir(context);
+		Log.i("test", "Rage directory: " + rageDir);
 		if (!rageDir.exists()) {
 			Log.d(RageFacesApp.TAG, "Rage face directory does not exist, creating it.");
 			rageDir.mkdir();
@@ -78,7 +77,7 @@ public class ShareUtils {
 			return null;
 		}
 
-		File rageFaceFile = new File(getRageDir(), name + ".png");
+		File rageFaceFile = new File(getRageDir(context), name + ".png");
 		if (!rageFaceFile.exists()) {
 			// File doesn't exist, copy it in
 			try {
@@ -118,8 +117,15 @@ public class ShareUtils {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 	}
 
-	private static File getRageDir() {
-		return new File(Environment.getExternalStorageDirectory(), RAGE_DIR);
+	// Uses rules outlined here: http://developer.android.com/guide/topics/data/data-storage.html#AccessingExtFiles
+	private static File getRageDir(Context context) {
+		if (Build.VERSION.SDK_INT >= 8) {
+			return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+		}
+		else {
+			return new File(Environment.getExternalStorageDirectory() + "/Android/data/" + context.getPackageName()
+					+ "/files/Pictures/");
+		}
 	}
 
 	public static void shareRageFace(Context context, Uri rageFaceUri) {
