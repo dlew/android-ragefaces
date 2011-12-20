@@ -384,12 +384,12 @@ public class RageFacePickerActivity extends Activity {
 		case DIALOG_ACTIONS: {
 			// First, determine which items we will show to the user
 			ArrayList<String> items = new ArrayList<String>();
-			final ArrayList<DialogAction> actions = new ArrayList<DialogAction>();
+			final ArrayList<Runnable> actions = new ArrayList<Runnable>();
 
 			// Standard share option
 			items.add(getString(R.string.dialog_actions_opt_share));
-			actions.add(new DialogAction() {
-				public void doAction() {
+			actions.add(new Runnable() {
+				public void run() {
 					shareRageFace(mRageFaceUri);
 				}
 			});
@@ -397,8 +397,8 @@ public class RageFacePickerActivity extends Activity {
 			// If the user has Sense messaging, that option
 			if (hasSenseMessagingApp(mRageFaceUri)) {
 				items.add(getString(R.string.dialog_actions_opt_share_sense));
-				actions.add(new DialogAction() {
-					public void doAction() {
+				actions.add(new Runnable() {
+					public void run() {
 						shareRageFaceSenseMessaging(mRageFaceUri);
 					}
 				});
@@ -406,8 +406,8 @@ public class RageFacePickerActivity extends Activity {
 
 			// View the face full screen
 			items.add(getString(R.string.dialog_actions_opt_view));
-			actions.add(new DialogAction() {
-				public void doAction() {
+			actions.add(new Runnable() {
+				public void run() {
 					Intent intent = new Intent(mContext, RageFaceViewerActivity.class);
 					intent.putExtra(RageFaceViewerActivity.EXTRA_FACE_ID, mRageFaceId);
 					startActivity(intent);
@@ -416,8 +416,8 @@ public class RageFacePickerActivity extends Activity {
 
 			// Add the face to the gallery
 			items.add(getString(R.string.dialog_actions_opt_add_to_gallery));
-			actions.add(new DialogAction() {
-				public void doAction() {
+			actions.add(new Runnable() {
+				public void run() {
 					loadRageFace(mRageFaceName, true);
 				}
 			});
@@ -427,7 +427,7 @@ public class RageFacePickerActivity extends Activity {
 			builder.setItems(items.toArray(new String[0]), new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					actions.get(which).doAction();
+					actions.get(which).run();
 					removeDialog(DIALOG_ACTIONS);
 				}
 			});
@@ -499,11 +499,6 @@ public class RageFacePickerActivity extends Activity {
 			sb.append(names[a]);
 		}
 		return sb.toString();
-	}
-
-	// This is for making it easier to associate each dialog option with an action
-	private interface DialogAction {
-		public void doAction();
 	}
 
 	//////////////////////////////////////////////////////////////////////////
