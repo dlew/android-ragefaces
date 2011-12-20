@@ -1,9 +1,11 @@
-package com.idunnolol.ragefaces;
+package com.idunnolol.ragefaces.app;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+
+import com.idunnolol.ragefaces.R;
 
 public class RageFaceViewerActivity extends Activity {
 

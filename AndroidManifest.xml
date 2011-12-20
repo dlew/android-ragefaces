@@ -25,12 +25,17 @@
 		android:label="@string/app_name"
 		android:name=".RageFacesApp">
 		<activity
-			android:name=".RageFacePickerActivity"
-			android:label="@string/app_name">
+		    android:name=".RageFacePickerActivity"
+		    android:theme="@android:style/Theme.NoDisplay">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+		</activity>
+
+		<activity
+			android:name=".app.RageFacePickerActivity"
+			android:label="@string/app_name">
 			<intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
                 <action android:name="android.intent.action.PICK"/>
@@ -40,6 +45,6 @@
             </intent-filter>
 		</activity>
 
-		<activity android:name=".RageFaceViewerActivity" />
+		<activity android:name=".app.RageFaceViewerActivity" />
 	</application>
 </manifest> 
