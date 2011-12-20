@@ -39,6 +39,7 @@ import com.idunnolol.ragefaces.RageFacesApp;
 import com.idunnolol.ragefaces.adapters.RageFaceDbAdapter;
 import com.idunnolol.ragefaces.adapters.RageFaceScannerAdapter;
 import com.idunnolol.ragefaces.adapters.RawRetriever;
+import com.idunnolol.ragefaces.app.fragment.ViewerFragment;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
 import com.idunnolol.ragefaces.data.Pair;
 import com.idunnolol.ragefaces.utils.ResourceUtils;
@@ -282,7 +283,7 @@ public class RageFacePickerActivity extends Activity {
 			actions.add(new Runnable() {
 				public void run() {
 					Intent intent = new Intent(mContext, RageFaceViewerActivity.class);
-					intent.putExtra(RageFaceViewerActivity.EXTRA_FACE_ID, mRageFaceId);
+					intent.putExtra(ViewerFragment.EXTRA_FACE_ID, mRageFaceId);
 					startActivity(intent);
 				}
 			});

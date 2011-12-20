@@ -1,26 +1,23 @@
 package com.idunnolol.ragefaces.app;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 
-import com.idunnolol.ragefaces.R;
+import com.idunnolol.ragefaces.app.fragment.ViewerFragment;
 
-public class RageFaceViewerActivity extends Activity {
-
-	public static String EXTRA_FACE_ID = "EXTRA_FACE_ID";
+public class RageFaceViewerActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Intent intent = getIntent();
-		int faceId = intent.getIntExtra(EXTRA_FACE_ID, R.raw.rage_original);
-
-		setContentView(R.layout.viewer);
-
-		ImageView faceView = (ImageView) findViewById(R.id.Face);
-		faceView.setImageResource(faceId);
+		if (savedInstanceState == null) {
+			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			ViewerFragment viewer = new ViewerFragment();
+			viewer.setArguments(getIntent().getExtras());
+			ft.add(android.R.id.content, viewer);
+			ft.commit();
+		}
 	}
 }
