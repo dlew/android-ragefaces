@@ -24,9 +24,12 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -46,14 +49,12 @@ import com.idunnolol.ragefaces.adapters.RageFaceScannerAdapter;
 import com.idunnolol.ragefaces.adapters.RawRetriever;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
 import com.idunnolol.ragefaces.data.Pair;
-import com.idunnolol.ragefaces.data.RageFaceMediaScanner;
 import com.idunnolol.ragefaces.utils.ResourceUtils;
 
 public class RageFacePickerActivity extends Activity {
 
 	// Where files go for sharing with other apps
 	private static final String RAGE_DIR = "com.idunnolol.rageface/";
-	private static final String PUBLIC_RAGE_DIR = "Rage Faces/";
 
 	// For keeping state between configuration changes
 	private static final String STATE_RAGEFACE_ID = "STATE_RAGEFACE_ID";
@@ -135,7 +136,7 @@ public class RageFacePickerActivity extends Activity {
 				RawRetriever retriever = (RawRetriever) mAdapter;
 				mRageFaceId = retriever.getRawResourceId((String) mAdapter.getItem(position));
 				mRageFaceName = (String) mAdapter.getItem(position);
-				mRageFaceUri = loadRageFace(mRageFaceName, false);
+				mRageFaceUri = loadRageFace(mRageFaceName);
 
 				Intent intent = getIntent();
 				if (intent.getAction().equals(Intent.ACTION_GET_CONTENT)
@@ -266,18 +267,12 @@ public class RageFacePickerActivity extends Activity {
 			picturesDir.mkdir();
 		}
 
-		File publicRageDir = getPublicRageDir();
-		if (!publicRageDir.exists()) {
-			Log.d(RageFacesApp.TAG, "Public rage face directory does not exist, creating it.");
-			publicRageDir.mkdir();
-		}
-
 		return true;
 	}
 
 	// Loads a rage face to the SD card, if it is not already there
 	// Returns the URI for it
-	private Uri loadRageFace(String name, boolean isPublic) {
+	private Uri loadRageFace(String name) {
 		if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 			Toast.makeText(mContext, getString(R.string.err_sd_not_mounted), Toast.LENGTH_LONG).show();
 			return null;
@@ -286,8 +281,7 @@ public class RageFacePickerActivity extends Activity {
 		// Just in case, can't hurt.
 		loadRageFacesDir();
 
-		File rageDir = (isPublic) ? getPublicRageDir() : getRageDir();
-		File rageFaceFile = new File(rageDir, name + ".png");
+		File rageFaceFile = new File(getRageDir(), name + ".png");
 		if (!rageFaceFile.exists()) {
 			// File doesn't exist, copy it in
 			try {
@@ -309,21 +303,21 @@ public class RageFacePickerActivity extends Activity {
 			}
 		}
 
-		// If this was loaded to be public, do a media scan now to load it into the gallery
-		if (isPublic) {
-			RageFaceMediaScanner mediaScanner = new RageFaceMediaScanner(this, rageFaceFile.getAbsolutePath());
-			mediaScanner.doScan();
-		}
-
 		return Uri.fromFile(rageFaceFile);
+	}
+
+	public void addRageFaceToGallery(String name) {
+		RawRetriever retriever = (RawRetriever) mAdapter;
+		Bitmap source = BitmapFactory.decodeStream(mResources.openRawResource(retriever.getRawResourceId(name)));
+		String url = MediaStore.Images.Media.insertImage(getContentResolver(), source, name, null);
+
+		if (url != null) {
+			Toast.makeText(this, R.string.added_face_to_gallery_toast, Toast.LENGTH_LONG).show();
+		}
 	}
 
 	private File getRageDir() {
 		return new File(Environment.getExternalStorageDirectory(), RAGE_DIR);
-	}
-
-	private File getPublicRageDir() {
-		return new File(Environment.getExternalStorageDirectory(), "Pictures/" + PUBLIC_RAGE_DIR);
 	}
 
 	/**
@@ -418,7 +412,7 @@ public class RageFacePickerActivity extends Activity {
 			items.add(getString(R.string.dialog_actions_opt_add_to_gallery));
 			actions.add(new Runnable() {
 				public void run() {
-					loadRageFace(mRageFaceName, true);
+					addRageFaceToGallery(mRageFaceName);
 				}
 			});
 
