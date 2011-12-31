@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
@@ -20,18 +19,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.idunnolol.ragefaces.R;
@@ -39,13 +34,15 @@ import com.idunnolol.ragefaces.RageFacesApp;
 import com.idunnolol.ragefaces.adapters.RageFaceDbAdapter;
 import com.idunnolol.ragefaces.adapters.RageFaceScannerAdapter;
 import com.idunnolol.ragefaces.adapters.RawRetriever;
+import com.idunnolol.ragefaces.app.fragment.PickerFragment;
+import com.idunnolol.ragefaces.app.fragment.PickerFragment.PickerFragmentListener;
 import com.idunnolol.ragefaces.app.fragment.ViewerFragment;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
 import com.idunnolol.ragefaces.data.Pair;
 import com.idunnolol.ragefaces.utils.ResourceUtils;
 import com.idunnolol.ragefaces.utils.ShareUtils;
 
-public class RageFacePickerActivity extends Activity {
+public class RageFacePickerActivity extends FragmentActivity {
 
 	// For keeping state between configuration changes
 	private static final String STATE_RAGEFACE_ID = "STATE_RAGEFACE_ID";
@@ -65,11 +62,6 @@ public class RageFacePickerActivity extends Activity {
 
 	private BaseAdapter mAdapter;
 
-	// Cached views 
-	private LinearLayout mLoadingContainer;
-	private TextView mMessageView;
-	private GridView mGridView;
-
 	// When dialog is opened, rage face data stored here
 	private int mRageFaceId;
 	private String mRageFaceName;
@@ -79,6 +71,9 @@ public class RageFacePickerActivity extends Activity {
 	private int[] mCategoryIds;
 	private String[] mCategoryNames;
 	private int mFilterCategory;
+
+	// Fragment
+	PickerFragment mPickerFragment;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -90,10 +85,16 @@ public class RageFacePickerActivity extends Activity {
 		mContext = this;
 		mResources = getResources();
 
-		setContentView(R.layout.main);
-		mLoadingContainer = (LinearLayout) findViewById(R.id.LoadingContainer);
-		mMessageView = (TextView) findViewById(R.id.Message);
-		mGridView = (GridView) findViewById(R.id.GridView);
+		if (savedInstanceState == null) {
+			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			mPickerFragment = new PickerFragment();
+			ft.add(android.R.id.content, mPickerFragment, getString(R.string.tag_picker_fragment));
+			ft.commit();
+		}
+		else {
+			mPickerFragment = (PickerFragment) getSupportFragmentManager().findFragmentByTag(
+					getString(R.string.tag_picker_fragment));
+		}
 
 		if (savedInstanceState != null) {
 			mFilterCategory = savedInstanceState.getInt(STATE_FILTER_CATEGORY, -1);
@@ -118,11 +119,14 @@ public class RageFacePickerActivity extends Activity {
 			findViewById(R.id.button_bar_layout).setVisibility(View.GONE);
 		}
 
-		// Apply adapter to gridview
-		mGridView.setAdapter(mAdapter);
-		mGridView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// Configure the PickerFragment
+		mPickerFragment.displayFaces(mAdapter);
+		mPickerFragment.setListener(new PickerFragmentListener() {
+			public void onFilterClicked() {
+				showDialog(DIALOG_FILTER);
+			}
+
+			public void onFaceClicked(int position) {
 				// Gather some data on what the user selected
 				RawRetriever retriever = (RawRetriever) mAdapter;
 				mRageFaceId = retriever.getRawResourceId((String) mAdapter.getItem(position));
@@ -140,15 +144,6 @@ public class RageFacePickerActivity extends Activity {
 					// Default - show dialog with action options to user
 					showDialog(DIALOG_ACTIONS);
 				}
-			}
-		});
-
-		// Configure the filter button
-		Button filterButton = (Button) findViewById(R.id.filter_button);
-		filterButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				showDialog(DIALOG_FILTER);
 			}
 		});
 
@@ -195,12 +190,8 @@ public class RageFacePickerActivity extends Activity {
 
 		// Load rage faces to SD card
 		int errResId = ShareUtils.loadRageFacesDir(this);
-		if (errResId == 0) {
-			mLoadingContainer.setVisibility(View.GONE);
-			mGridView.setVisibility(View.VISIBLE);
-		}
-		else {
-			mMessageView.setText(errResId);
+		if (errResId != 0) {
+			mPickerFragment.displayMessage(getString(errResId));
 		}
 	}
 
