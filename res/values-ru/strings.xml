@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- The name of the app -->
+	<string name="app_name">Яростные Рожи</string>
+	
+	<!-- Actions dialog -->
+	<!-- Title for dialog that pops up when you click on a face.  (This does not have to be directly translated, it is a joke) -->
+	<string name="dialog_actions_title">ЧЁ СДЕЛАТЬ?</string>
+	<!-- Dialog option for sharing a face -->
+	<string name="dialog_actions_opt_share">Поделиться</string>
+	<!-- Dialog option for sharing a face (when the user has the HTC Sense "Messaging" app) -->
+	<string name="dialog_actions_opt_share_sense">Отправить через ММС</string>
+	<!-- Dialog option to view the face in the app -->
+	<string name="dialog_actions_opt_view">Посмотреть Рожу</string>
+	<!-- Dialog option to add the face to the Gallery -->
+	<string name="dialog_actions_opt_add_to_gallery">Добавить в галерею</string>
+	
+	<!-- Toast popup notification when successfully added a rage face to the Gallery -->
+	<string name="added_face_to_gallery_toast">Рожа добавлена в галерею!</string>
+	
+	<!-- Filters -->
+	<!-- Label for button to activate a filter -->
+	<string name="filter">Фильтр</string>
+	<!-- Title for filter dialog -->
+	<string name="dialog_filter_title">Выбрать категорию</string>
+	<!-- Filter dialog button that shows all faces (clears the filter) -->
+	<string name="dialog_filter_clear">Все Рожи</string>
+	<!-- Help dialog -->
+	<string name="help">Помощь</string>
+	<!-- Help dialog contents -->
+	<string name="help_msg">Основное действие: Нажмите на Рожу и выберите, что хотите сделать с ней.\n\nЧтобы вставить Рожу в текущую беседу:\n1. Откройте Меню и нажмите \"Вложить\"\n2. Нажмите \"Изображение\"\n3. Нажмите \"Яростные Рожи\"</string>
+	
+	<!-- About dialog -->
+	<!-- Label for menu option "About" -->
+	<string name="about">О программе</string>
+	<!-- "About" dialog contents.  Make sure to keep "\n\n" as a newline between each section.  Be sure to leave the %1$s, %2$s, etc. in!  They are important!
+		%1$s == App version
+		%2$s == list of contributors
+		%3$s == list of translators -->
+	<string name="about_msg">Яростные Рожи %1$s.\n\nАвтор rkcr.\n\nРазработчики: %2$s\n\nПереводчики: %3$s\n\nИконка by TheFunkyMonk.\n\nТестировщик: mystikalghost</string>
+	
+	<!-- Error strings -->
+	<!-- Error message shown to user when the SD card is not mounted -->
+	<string name="err_sd_not_mounted">Для использования Яростных Рож должна быть установлена карта памяти - проблема?</string>
+	<!-- Generic error given when we couldn't initialize the app for some reason -->
+	<string name="err_loading">Не удалось инициализировать Яростные Рожи - проблема?</string>
+	<!-- Error when we cannot share a face with another app due to SD card errors -->
+	<string name="err_load_face">Не удается загрузить Яростные Рожи на карту памяти - проблема?</string>
+	
+	<!-- Labels for categories -->
+	<!-- Category label for "Troll" -->
+	<string name="category_troll">Тролль</string>
+	<!-- Category label for "Female" -->
+	<string name="category_female">Девушки</string>
+	<!-- Category label for "Rage" -->
+	<string name="category_rage">Яростные</string>
+	<!-- Category label for "Thinking" -->
+	<string name="category_thinking">Мыслящие</string>
+	<!-- Category label for "Forever Alone" -->
+	<string name="category_forever_alone">Forever Alone</string>
+	<!-- Category label for "Angry" -->
+	<string name="category_angry">Злые</string>
+	<!-- Category label for "Victory" -->
+	<string name="category_victory">Победители</string>
+	<!-- Category label for "Me Gusta" -->
+	<string name="category_me_gusta">Me Gusta</string>
+	<!-- Category label for "Tears" -->
+	<string name="category_tears">Плачущие</string>
+	<!-- Category label for "Trees" -->
+	<string name="category_trees">Деревья</string>
+	<!-- Category label for "Laughing" -->
+	<string name="category_laughing">Смеющиеся</string>
+	<!-- Category label for "Animal" -->
+	<string name="category_animal">Животные</string>
+	<!-- Category label for "Pleasure" -->
+	<string name="category_pleasure">Довольные</string>
+	<!-- Category label for "Poker Face" -->
+	<string name="category_poker_face">Poker Face</string>
+	<!-- Category label for "Okay" -->
+	<string name="category_okay">Okay</string>
+	<!-- Category label for "Male" -->
+	<string name="category_male">Парни</string>
+	<!-- Category label for "Stick Figure" -->
+	<string name="category_stick_figure">Человек-палка</string>
+	<!-- Category label for "Surprised" -->
+	<string name="category_surprised">Удивленные</string>
+	<!-- Category label for "Happy" -->
+	<string name="category_happy">Счастливые</string>
+	<!-- Category label for "Dad" -->
+	<string name="category_dad">Отец</string>
+	<!-- Category label for "Reddit" -->
+	<string name="category_reddit">Reddit</string>
+	<!-- Category label for "Seriously?" -->
+	<string name="category_seriously">Серьезно?</string>
+	<!-- Category label for "No Text" -->
+	<string name="category_no_text">Без текста</string>
+	<!-- Category label for "Challenged" -->
+	<string name="category_challenged">Принявшие вызов</string>
+	<!-- Category label for "Text" -->
+	<string name="category_text">С текстом</string>
+	<!-- Category label for "Horror" -->
+	<string name="category_horror">Ужас</string>
+	<!-- Category label for "Drunk" -->
+	<string name="category_drunk">Пьющие</string>
+	<!-- Category label for "Evil" -->
+	<string name="category_evil">Зло</string>
+	<!-- Category label for "Sad" -->
+	<string name="category_sad">Грустные</string>
+	<!-- Category label for "Neutral" -->
+	<string name="category_neutral">Нейтральные</string>
+	<!-- Category label for "Celebrity" -->
+	<string name="category_celebrity">Знаменитости</string>
+	<!-- Category label for "Fuck Yea" -->
+	<string name="category_fuck_yea">Fuck Yea</string>
+	<!-- Category label for "Cereal" -->
+	<string name="category_cereal">Хлопья</string>
+	<!-- Category label for "Grandma" -->
+	<string name="category_grandma">Бабушка</string>
+	<!-- Category label for "Inglip" -->
+	<string name="category_inglip">Инглип</string>
+	<!-- Category label for "Awe" -->
+	<string name="category_awe">Страх</string>
+	<!-- Category label for "Disappointed" -->
+	<string name="category_disappointed">Разочарованные</string>
+	<!-- Category label for "Why" -->
+	<string name="category_why">Почему?</string>
+	<!-- Category label for "Shit" -->
+	<string name="category_shit">Говно</string>
+	<!-- Category label for "Milk" -->
+	<string name="category_milk">Молоко</string>
+</resources>
