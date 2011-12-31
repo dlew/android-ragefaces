@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- The name of the app -->
+	<string name="app_name">Rage Faces</string>
+	
+	<!-- Actions dialog -->
+	<!-- Title for dialog that pops up when you click on a face.  (This does not have to be directly translated, it is a joke) -->
+	<string name="dialog_actions_title">VAD GÖRA?</string>
+	<!-- Dialog option for sharing a face -->
+	<string name="dialog_actions_opt_share">Dela</string>
+	<!-- Dialog option for sharing a face (when the user has the HTC Sense "Messaging" app) -->
+	<string name="dialog_actions_opt_share_sense">Skicka via Meddelanden</string>
+	<!-- Dialog option to view the face in the app -->
+	<string name="dialog_actions_opt_view">Visa bild</string>
+	<!-- Dialog option to add the face to the Gallery -->
+	<string name="dialog_actions_opt_add_to_gallery">Lägg till i Galleri</string>
+	
+	<!-- Toast popup notification when successfully added a rage face to the Gallery -->
+	<string name="added_face_to_gallery_toast">Bilden lades till i galleriet!</string>
+	
+	<!-- Filters -->
+	<!-- Label for button to activate a filter -->
+	<string name="filter">Filtrera</string>
+	<!-- Title for filter dialog -->
+	<string name="dialog_filter_title">Välj kategori</string>
+	<!-- Filter dialog button that shows all faces (clears the filter) -->
+	<string name="dialog_filter_clear">Visa alla</string>
+	<!-- Help dialog -->
+	<string name="help">Hjälp</string>
+	<!-- Help dialog contents -->
+	<string name="help_msg">Grundläggande: Klicka på en bild och gör sedan vad du vill med den.\n\nFör att lägga till en bild i en pågående konversation:\n1. Öppna menyn och klicka \"Lägg till\"\n2. Klicka \"Bilder\"\n3. Klicka \"Rage Faces\"</string>
+	
+	<!-- About dialog -->
+	<!-- Label for menu option "About" -->
+	<string name="about">Om</string>
+	<!-- "About" dialog contents.  Make sure to keep "\n\n" as a newline between each section.  Be sure to leave the %1$s, %2$s, etc. in!  They are important!
+		%1$s == App version
+		%2$s == list of contributors
+		%3$s == list of translators -->
+	<string name="about_msg">Rage Faces %1$s.\n\nSkapad av rkcr.\n\nMedarbetare: %2$s\n\nÖversättare: %3$s\n\nAppikon av TheFunkyMonk.\n\nTestare: mystikalghost</string>
+	
+	<!-- Error strings -->
+	<!-- Error message shown to user when the SD card is not mounted -->
+	<string name="err_sd_not_mounted">SD-kortet måste sitta i för att kunna använda Rage Faces - problem?</string>
+	<!-- Generic error given when we couldn't initialize the app for some reason -->
+	<string name="err_loading">Kunde inte starta Rage Faces - problem?</string>
+	<!-- Error when we cannot share a face with another app due to SD card errors -->
+	<string name="err_load_face">Kunde inte komma åt SD-kortet - problem?</string>
+	
+	<!-- Labels for categories -->
+	<!-- Category label for "Troll" -->
+	<string name="category_troll">Troll</string>
+	<!-- Category label for "Female" -->
+	<string name="category_female">Female</string>
+	<!-- Category label for "Rage" -->
+	<string name="category_rage">Rage</string>
+	<!-- Category label for "Thinking" -->
+	<string name="category_thinking">Thinking</string>
+	<!-- Category label for "Forever Alone" -->
+	<string name="category_forever_alone">Forever Alone</string>
+	<!-- Category label for "Angry" -->
+	<string name="category_angry">Angry</string>
+	<!-- Category label for "Victory" -->
+	<string name="category_victory">Victory</string>
+	<!-- Category label for "Me Gusta" -->
+	<string name="category_me_gusta">Me Gusta</string>
+	<!-- Category label for "Tears" -->
+	<string name="category_tears">Tears</string>
+	<!-- Category label for "Trees" -->
+	<string name="category_trees">Trees</string>
+	<!-- Category label for "Laughing" -->
+	<string name="category_laughing">Laughing</string>
+	<!-- Category label for "Animal" -->
+	<string name="category_animal">Animal</string>
+	<!-- Category label for "Pleasure" -->
+	<string name="category_pleasure">Pleasure</string>
+	<!-- Category label for "Poker Face" -->
+	<string name="category_poker_face">Poker Face</string>
+	<!-- Category label for "Okay" -->
+	<string name="category_okay">Okay</string>
+	<!-- Category label for "Male" -->
+	<string name="category_male">Male</string>
+	<!-- Category label for "Stick Figure" -->
+	<string name="category_stick_figure">Stick Figure</string>
+	<!-- Category label for "Surprised" -->
+	<string name="category_surprised">Surprised</string>
+	<!-- Category label for "Happy" -->
+	<string name="category_happy">Happy</string>
+	<!-- Category label for "Dad" -->
+	<string name="category_dad">Dad</string>
+	<!-- Category label for "Reddit" -->
+	<string name="category_reddit">Reddit</string>
+	<!-- Category label for "Seriously?" -->
+	<string name="category_seriously">Seriously?</string>
+	<!-- Category label for "No Text" -->
+	<string name="category_no_text">No Text</string>
+	<!-- Category label for "Challenged" -->
+	<string name="category_challenged">Challenged</string>
+	<!-- Category label for "Text" -->
+	<string name="category_text">Text</string>
+	<!-- Category label for "Horror" -->
+	<string name="category_horror">Horror</string>
+	<!-- Category label for "Drunk" -->
+	<string name="category_drunk">Drunk</string>
+	<!-- Category label for "Evil" -->
+	<string name="category_evil">Evil</string>
+	<!-- Category label for "Sad" -->
+	<string name="category_sad">Sad</string>
+	<!-- Category label for "Neutral" -->
+	<string name="category_neutral">Neutral</string>
+	<!-- Category label for "Celebrity" -->
+	<string name="category_celebrity">Celebrity</string>
+	<!-- Category label for "Fuck Yea" -->
+	<string name="category_fuck_yea">Fuck Yea</string>
+	<!-- Category label for "Cereal" -->
+	<string name="category_cereal">Cereal</string>
+	<!-- Category label for "Grandma" -->
+	<string name="category_grandma">Grandma</string>
+	<!-- Category label for "Inglip" -->
+	<string name="category_inglip">Inglip</string>
+	<!-- Category label for "Awe" -->
+	<string name="category_awe">Awe</string>
+	<!-- Category label for "Disappointed" -->
+	<string name="category_disappointed">Disappointed</string>
+	<!-- Category label for "Why" -->
+	<string name="category_why">Why</string>
+	<!-- Category label for "Shit" -->
+	<string name="category_shit">Shit</string>
+	<!-- Category label for "Milk" -->
+	<string name="category_milk">Milk</string>
+</resources>
