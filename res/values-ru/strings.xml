@@ -37,7 +37,7 @@
 		%1$s == App version
 		%2$s == list of contributors
 		%3$s == list of translators -->
-	<string name="about_msg">Яростные Рожи %1$s.\n\nАвтор rkcr.\n\nРазработчики: %2$s\n\nПереводчики: %3$s\n\nИконка by TheFunkyMonk.\n\nТестировщик: mystikalghost</string>
+	<string name="about_msg">Яростные Рожи %1$s.\n\nАвтор rkcr.\n\nРазработчик: %2$s\n\nПереводчики: %3$s\n\nИконка by TheFunkyMonk.\n\nТестировщик: mystikalghost</string>
 	
 	<!-- Error strings -->
 	<!-- Error message shown to user when the SD card is not mounted -->
