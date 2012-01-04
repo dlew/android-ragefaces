@@ -20,11 +20,13 @@ public class PickerFragment extends Fragment {
 	// Data being displayed
 	private ListAdapter mAdapter;
 	private CharSequence mMessage;
+	private int mButtonBarVisibility = View.VISIBLE;
 
 	// Cached views 
 	private LinearLayout mLoadingContainer;
 	private TextView mMessageView;
 	private GridView mGridView;
+	private ViewGroup mButtonBar;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class PickerFragment extends Fragment {
 		mLoadingContainer = (LinearLayout) v.findViewById(R.id.LoadingContainer);
 		mMessageView = (TextView) v.findViewById(R.id.Message);
 		mGridView = (GridView) v.findViewById(R.id.GridView);
+		mButtonBar = (ViewGroup) v.findViewById(R.id.button_bar_layout);
 
 		// Configure the GridView
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
@@ -52,6 +55,7 @@ public class PickerFragment extends Fragment {
 		// Load initial data
 		loadMessage();
 		loadFaces();
+		loadButtonBar();
 
 		return v;
 	}
@@ -83,6 +87,17 @@ public class PickerFragment extends Fragment {
 				mLoadingContainer.setVisibility(View.GONE);
 				mGridView.setVisibility(View.VISIBLE);
 			}
+		}
+	}
+
+	public void setButtonBarVisibility(int visibility) {
+		mButtonBarVisibility = visibility;
+		loadButtonBar();
+	}
+
+	private void loadButtonBar() {
+		if (mButtonBar != null) {
+			mButtonBar.setVisibility(mButtonBarVisibility);
 		}
 	}
 

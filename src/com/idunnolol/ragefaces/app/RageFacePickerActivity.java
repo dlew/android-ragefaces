@@ -116,7 +116,7 @@ public class RageFacePickerActivity extends FragmentActivity {
 		}
 		else {
 			mAdapter = new RageFaceScannerAdapter(this);
-			findViewById(R.id.button_bar_layout).setVisibility(View.GONE);
+			mPickerFragment.setButtonBarVisibility(View.GONE);
 		}
 
 		// Configure the PickerFragment
