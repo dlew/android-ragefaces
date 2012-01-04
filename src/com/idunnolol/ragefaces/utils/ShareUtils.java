@@ -36,10 +36,10 @@ public class ShareUtils {
 		}
 
 		File rageDir = getRageDir(context);
-		Log.i("test", "Rage directory: " + rageDir);
+		Log.i(RageFacesApp.TAG, "Rage directory: " + rageDir);
 		if (!rageDir.exists()) {
 			Log.d(RageFacesApp.TAG, "Rage face directory does not exist, creating it.");
-			rageDir.mkdir();
+			rageDir.mkdirs();
 		}
 
 		File nomediaFile = new File(rageDir, ".nomedia");
@@ -52,12 +52,6 @@ public class ShareUtils {
 				Log.e(RageFacesApp.TAG, "Could not create .nomedia file", e);
 				return R.string.err_loading;
 			}
-		}
-
-		File picturesDir = new File(Environment.getExternalStorageDirectory(), "Pictures/");
-		if (!picturesDir.exists()) {
-			Log.d(RageFacesApp.TAG, "Pictures media directory does not exist, creating it.");
-			picturesDir.mkdir();
 		}
 
 		return 0;
@@ -119,13 +113,17 @@ public class ShareUtils {
 
 	// Uses rules outlined here: http://developer.android.com/guide/topics/data/data-storage.html#AccessingExtFiles
 	private static File getRageDir(Context context) {
+		File dir = null;
 		if (Build.VERSION.SDK_INT >= 8) {
-			return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+			dir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 		}
-		else {
-			return new File(Environment.getExternalStorageDirectory() + "/Android/data/" + context.getPackageName()
+
+		if (dir == null) {
+			dir = new File(Environment.getExternalStorageDirectory() + "/Android/data/" + context.getPackageName()
 					+ "/files/Pictures/");
 		}
+
+		return dir;
 	}
 
 	public static void shareRageFace(Context context, Uri rageFaceUri) {
