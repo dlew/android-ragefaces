@@ -115,7 +115,14 @@ public class ShareUtils {
 	private static File getRageDir(Context context) {
 		File dir = null;
 		if (Build.VERSION.SDK_INT >= 8) {
-			dir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+			// Retrieve DIRECTORY_PICTURES by reflection; otherwise we can sometimes get a VerifyError
+			try {
+				String path = (String) Environment.class.getField("DIRECTORY_PICTURES").get(new String());
+				dir = context.getExternalFilesDir(path);
+			}
+			catch (Exception e) {
+				Log.w(RageFacesApp.TAG, "Could not retrieve rage dir in DIRECTORY_PICTURES", e);
+			}
 		}
 
 		if (dir == null) {
