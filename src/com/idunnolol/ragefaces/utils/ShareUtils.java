@@ -25,6 +25,8 @@ import com.idunnolol.ragefaces.RageFacesApp;
 
 public class ShareUtils {
 
+	private static boolean sUseBackupRageDir = false;
+
 	/**
 	 * Loads the media drive directory where we place the rage faces for sharing.
 	 * 
@@ -39,7 +41,11 @@ public class ShareUtils {
 		Log.i(RageFacesApp.TAG, "Rage directory: " + rageDir);
 		if (!rageDir.exists()) {
 			Log.d(RageFacesApp.TAG, "Rage face directory does not exist, creating it.");
-			rageDir.mkdirs();
+			boolean success = rageDir.mkdirs();
+			if (!success && !sUseBackupRageDir) {
+				sUseBackupRageDir = true;
+				return loadRageFacesDir(context);
+			}
 		}
 
 		File nomediaFile = new File(rageDir, ".nomedia");
@@ -113,6 +119,10 @@ public class ShareUtils {
 
 	// Uses rules outlined here: http://developer.android.com/guide/topics/data/data-storage.html#AccessingExtFiles
 	private static File getRageDir(Context context) {
+		if (sUseBackupRageDir) {
+			return new File(Environment.getExternalStorageDirectory(), "com.idunnolol.rageface/");
+		}
+
 		File dir = null;
 		if (Build.VERSION.SDK_INT >= 8) {
 			// Retrieve DIRECTORY_PICTURES by reflection; otherwise we can sometimes get a VerifyError
