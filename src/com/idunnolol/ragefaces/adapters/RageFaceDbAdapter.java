@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
@@ -13,11 +14,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.idunnolol.ragefaces.R;
+import com.idunnolol.ragefaces.data.Cache;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
 import com.idunnolol.ragefaces.utils.ResourceUtils;
 
 public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
 
+	private Resources mResources;
 	private LayoutInflater mInflater;
 
 	private SQLiteDatabase mDb;
@@ -27,6 +30,7 @@ public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
 	private HashMap<String, Integer> mResourceIds;
 
 	public RageFaceDbAdapter(Context context) {
+		mResources = context.getResources();
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mDb = DatabaseHelper.getFacesDb(context);
 		mResourceIds = new HashMap<String, Integer>();
@@ -61,7 +65,7 @@ public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
 		}
 
 		ImageView imageView = (ImageView) convertView;
-		imageView.setImageResource(getRawResourceId((String) getItem(position)));
+		imageView.setImageBitmap(Cache.getBitmap(mResources, getRawResourceId((String) getItem(position))));
 
 		return imageView;
 	}

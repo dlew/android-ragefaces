@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +16,18 @@ import android.widget.ImageView;
 
 import com.idunnolol.ragefaces.R;
 import com.idunnolol.ragefaces.RageFacesApp;
+import com.idunnolol.ragefaces.data.Cache;
 
 public class RageFaceScannerAdapter extends BaseAdapter implements RawRetriever {
 
+	private Resources mResources;
 	private LayoutInflater mInflater;
 
 	private Map<String, Integer> mRageFaces;
 	private String[] mRageFacesOrdered;
 
 	public RageFaceScannerAdapter(Context context) {
+		mResources = context.getResources();
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		// Use reflection to make a list of all rage faces contained in /res/raw/
@@ -74,7 +78,7 @@ public class RageFaceScannerAdapter extends BaseAdapter implements RawRetriever 
 		}
 
 		ImageView imageView = (ImageView) convertView;
-		imageView.setImageResource(mRageFaces.get(getItem(position)));
+		imageView.setImageBitmap(Cache.getBitmap(mResources, mRageFaces.get(getItem(position))));
 
 		return imageView;
 	}
