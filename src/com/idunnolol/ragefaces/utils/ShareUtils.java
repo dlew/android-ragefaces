@@ -14,7 +14,6 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -124,15 +123,8 @@ public class ShareUtils {
 		}
 
 		File dir = null;
-		if (Build.VERSION.SDK_INT >= 8) {
-			// Retrieve DIRECTORY_PICTURES by reflection; otherwise we can sometimes get a VerifyError
-			try {
-				String path = (String) Environment.class.getField("DIRECTORY_PICTURES").get(new String());
-				dir = context.getExternalFilesDir(path);
-			}
-			catch (Exception e) {
-				Log.w(RageFacesApp.TAG, "Could not retrieve rage dir in DIRECTORY_PICTURES", e);
-			}
+		if (sExternalFilesDirAvailable) {
+			dir = DirWrapper.getExternalFilesDir(context, DirWrapper.getPicturesDirectoryType());
 		}
 
 		if (dir == null) {
@@ -173,5 +165,40 @@ public class ShareUtils {
 		intent.putExtra(Intent.EXTRA_STREAM, rageFaceUri);
 		intent.setType("image/png");
 		context.startActivity(intent);
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+
+	private static boolean sExternalFilesDirAvailable;
+
+	static {
+		try {
+			DirWrapper.checkAvailable();
+			sExternalFilesDirAvailable = true;
+		}
+		catch (Throwable t) {
+			sExternalFilesDirAvailable = false;
+		}
+	}
+
+	private static class DirWrapper {
+		static {
+			try {
+				Context.class.getMethod("getExternalFilesDir", String.class);
+			}
+			catch (Exception ex) {
+				throw new RuntimeException(ex);
+			}
+		}
+
+		public static void checkAvailable() { }
+
+		public static String getPicturesDirectoryType() {
+			return Environment.DIRECTORY_PICTURES;
+		}
+
+		public static File getExternalFilesDir(Context context, String type) {
+			return context.getExternalFilesDir(type);
+		}
 	}
 }
