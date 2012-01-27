@@ -13,9 +13,8 @@ import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
-import com.idunnolol.ragefaces.RageFacesApp;
+import com.idunnolol.utils.Log;
 
 public class DatabaseHelper {
 
@@ -32,19 +31,19 @@ public class DatabaseHelper {
 		File dbDir = getDbDir(context);
 		File dbFile = getDbPath(context);
 		if (!dbDir.exists()) {
-			Log.i(RageFacesApp.TAG, "Faces database does not exist, creating it.");
+			Log.i("Faces database does not exist, creating it.");
 			dbDir.mkdir();
 			createDb = true;
 		}
 		else if (!dbFile.exists()) {
-			Log.i(RageFacesApp.TAG, "Faces database does not exist, creating it.");
+			Log.i("Faces database does not exist, creating it.");
 			createDb = true;
 		}
 		else {
 			// Check that we have the latest version of the db
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 			if (prefs.getInt(DB_PREFERENCE_KEY, 0) < DB_VERSION) {
-				Log.i(RageFacesApp.TAG, "Faces database is out of date, creating new version.");
+				Log.i("Faces database is out of date, creating new version.");
 				dbFile.delete();
 				createDb = true;
 			}
@@ -71,7 +70,7 @@ public class DatabaseHelper {
 				myInput.close();
 			}
 			catch (IOException e) {
-				Log.e(RageFacesApp.TAG, "Could not create faces database.", e);
+				Log.e("Could not create faces database.", e);
 				return false;
 			}
 

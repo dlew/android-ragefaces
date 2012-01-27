@@ -16,11 +16,10 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.idunnolol.ragefaces.R;
-import com.idunnolol.ragefaces.RageFacesApp;
+import com.idunnolol.utils.Log;
 
 public class ShareUtils {
 
@@ -37,9 +36,9 @@ public class ShareUtils {
 		}
 
 		File rageDir = getRageDir(context);
-		Log.i(RageFacesApp.TAG, "Rage directory: " + rageDir);
+		Log.i("Rage directory: " + rageDir);
 		if (!rageDir.exists()) {
-			Log.d(RageFacesApp.TAG, "Rage face directory does not exist, creating it.");
+			Log.d("Rage face directory does not exist, creating it.");
 			boolean success = rageDir.mkdirs();
 			if (!success && !sUseBackupRageDir) {
 				sUseBackupRageDir = true;
@@ -49,12 +48,12 @@ public class ShareUtils {
 
 		File nomediaFile = new File(rageDir, ".nomedia");
 		if (!nomediaFile.exists()) {
-			Log.d(RageFacesApp.TAG, ".nomedia file does not exist, creating it.");
+			Log.d(".nomedia file does not exist, creating it.");
 			try {
 				nomediaFile.createNewFile();
 			}
 			catch (IOException e) {
-				Log.e(RageFacesApp.TAG, "Could not create .nomedia file", e);
+				Log.e("Could not create .nomedia file", e);
 				return R.string.err_loading;
 			}
 		}
@@ -91,7 +90,7 @@ public class ShareUtils {
 				in.close();
 			}
 			catch (IOException e) {
-				Log.e(RageFacesApp.TAG, "Could not copy ragefaces file " + name + ".png", e);
+				Log.e("Could not copy ragefaces file " + name + ".png", e);
 				Toast.makeText(context, context.getString(R.string.err_load_face), Toast.LENGTH_LONG).show();
 				return null;
 			}

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.idunnolol.ragefaces.R;
-import com.idunnolol.ragefaces.RageFacesApp;
 import com.idunnolol.ragefaces.data.Cache;
+import com.idunnolol.utils.Log;
 
 public class RageFaceScannerAdapter extends BaseAdapter {
 
@@ -37,7 +36,7 @@ public class RageFaceScannerAdapter extends BaseAdapter {
 				mRageFaces.put(field.getName(), field.getInt(null));
 			}
 			catch (Exception e) {
-				Log.e(RageFacesApp.TAG, "HOW DID THIS HAPPEN FFFFUUUUU", e);
+				Log.e("HOW DID THIS HAPPEN FFFFUUUUU", e);
 			}
 		}
 

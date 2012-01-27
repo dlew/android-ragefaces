@@ -21,7 +21,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +29,6 @@ import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 import com.idunnolol.ragefaces.R;
-import com.idunnolol.ragefaces.RageFacesApp;
 import com.idunnolol.ragefaces.adapters.RageFaceDbAdapter;
 import com.idunnolol.ragefaces.adapters.RageFaceScannerAdapter;
 import com.idunnolol.ragefaces.app.fragment.PickerFragment;
@@ -39,6 +37,7 @@ import com.idunnolol.ragefaces.app.fragment.ViewerFragment;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
 import com.idunnolol.ragefaces.data.Pair;
 import com.idunnolol.ragefaces.utils.ShareUtils;
+import com.idunnolol.utils.Log;
 import com.idunnolol.utils.ResourceUtils;
 
 public class RageFacePickerActivity extends FragmentActivity {
@@ -340,7 +339,7 @@ public class RageFacePickerActivity extends FragmentActivity {
 			}
 			catch (Exception e) {
 				// PackageManager is traditionally wonky, need to accept all exceptions here.
-				Log.w(RageFacesApp.TAG, "Couldn't get package info in order to show version #!", e);
+				Log.w("Couldn't get package info in order to show version #!", e);
 				versionName = "";
 			}
 
