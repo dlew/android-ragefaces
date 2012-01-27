@@ -75,7 +75,7 @@ public class ShareUtils {
 			return null;
 		}
 
-		File rageFaceFile = new File(getRageDir(context), name + ".png");
+		File rageFaceFile = new File(getRageDir(context), name + ".jpg");
 		if (!rageFaceFile.exists()) {
 			// File doesn't exist, copy it in
 			try {
@@ -90,7 +90,7 @@ public class ShareUtils {
 				in.close();
 			}
 			catch (IOException e) {
-				Log.e("Could not copy ragefaces file " + name + ".png", e);
+				Log.e("Could not copy ragefaces file " + rageFaceFile.getAbsolutePath(), e);
 				Toast.makeText(context, context.getString(R.string.err_load_face), Toast.LENGTH_LONG).show();
 				return null;
 			}
@@ -137,7 +137,7 @@ public class ShareUtils {
 	public static void shareRageFace(Context context, Uri rageFaceUri) {
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.putExtra(Intent.EXTRA_STREAM, rageFaceUri);
-		intent.setType("image/png");
+		intent.setType("image/jpeg");
 
 		Intent chooser = Intent.createChooser(intent, null);
 		context.startActivity(chooser);
@@ -152,7 +152,7 @@ public class ShareUtils {
 	public static boolean hasSenseMessagingApp(Context context, Uri rageFaceUri) {
 		Intent dummy = new Intent("android.intent.action.SEND_MSG");
 		dummy.putExtra(Intent.EXTRA_STREAM, rageFaceUri);
-		dummy.setType("image/png");
+		dummy.setType("image/jpeg");
 
 		PackageManager packageManager = context.getPackageManager();
 		List<ResolveInfo> list = packageManager.queryIntentActivities(dummy, PackageManager.MATCH_DEFAULT_ONLY);
@@ -162,7 +162,7 @@ public class ShareUtils {
 	public static void shareRageFaceSenseMessaging(Context context, Uri rageFaceUri) {
 		Intent intent = new Intent("android.intent.action.SEND_MSG");
 		intent.putExtra(Intent.EXTRA_STREAM, rageFaceUri);
-		intent.setType("image/png");
+		intent.setType("image/jpeg");
 		context.startActivity(intent);
 	}
 

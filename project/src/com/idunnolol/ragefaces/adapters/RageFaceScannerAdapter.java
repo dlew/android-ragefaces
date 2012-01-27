@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.idunnolol.ragefaces.R;
 import com.idunnolol.ragefaces.data.Cache;
 import com.idunnolol.utils.Log;
+import com.idunnolol.utils.ResourceUtils;
 
 public class RageFaceScannerAdapter extends BaseAdapter {
 
@@ -30,10 +31,12 @@ public class RageFaceScannerAdapter extends BaseAdapter {
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		// Use reflection to make a list of all rage faces contained in /res/raw/
+		// However, use the drawable version of them (for speed)
 		mRageFaces = new HashMap<String, Integer>();
 		for (Field field : R.raw.class.getFields()) {
 			try {
-				mRageFaces.put(field.getName(), field.getInt(null));
+				String name = field.getName();
+				mRageFaces.put(name, ResourceUtils.getIdentifier(R.drawable.class, name));
 			}
 			catch (Exception e) {
 				Log.e("HOW DID THIS HAPPEN FFFFUUUUU", e);

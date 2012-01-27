@@ -41,7 +41,7 @@
                 <action android:name="android.intent.action.PICK"/>
                 <category android:name="android.intent.category.OPENABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="image/png" />
+                <data android:mimeType="image/jpeg" />
             </intent-filter>
 		</activity>
 

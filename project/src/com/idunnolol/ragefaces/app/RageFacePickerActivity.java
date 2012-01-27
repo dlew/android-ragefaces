@@ -128,7 +128,8 @@ public class RageFacePickerActivity extends FragmentActivity {
 				// Gather some data on what the user selected
 				mRageFaceId = ResourceUtils.getIdentifier(R.raw.class, (String) mAdapter.getItem(position));
 				mRageFaceName = (String) mAdapter.getItem(position);
-				mRageFaceUri = ShareUtils.loadRageFace(mContext, mRageFaceName, getResId(mRageFaceName));
+				mRageFaceUri = ShareUtils.loadRageFace(mContext, mRageFaceName,
+						ResourceUtils.getIdentifier(R.raw.class, mRageFaceName));
 
 				String action = getIntent().getAction();
 				if (Intent.ACTION_GET_CONTENT.equals(action) || Intent.ACTION_PICK.equals(action)) {
@@ -215,10 +216,6 @@ public class RageFacePickerActivity extends FragmentActivity {
 		}
 	}
 
-	private int getResId(String rageFaceName) {
-		return ResourceUtils.getIdentifier(R.raw.class, rageFaceName);
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.picker_menu, menu);
@@ -279,7 +276,8 @@ public class RageFacePickerActivity extends FragmentActivity {
 			items.add(getString(R.string.dialog_actions_opt_add_to_gallery));
 			actions.add(new Runnable() {
 				public void run() {
-					String url = ShareUtils.addRageFaceToGallery(mContext, mRageFaceName, getResId(mRageFaceName));
+					String url = ShareUtils.addRageFaceToGallery(mContext, mRageFaceName,
+							ResourceUtils.getIdentifier(R.raw.class, mRageFaceName));
 
 					if (url != null) {
 						Toast.makeText(mContext, R.string.added_face_to_gallery_toast, Toast.LENGTH_LONG).show();

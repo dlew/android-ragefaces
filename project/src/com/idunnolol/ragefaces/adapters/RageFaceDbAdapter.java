@@ -60,7 +60,7 @@ public class RageFaceDbAdapter extends BaseAdapter {
 		}
 
 		ImageView imageView = (ImageView) convertView;
-		int resId = ResourceUtils.getIdentifier(R.raw.class, (String) getItem(position));
+		int resId = ResourceUtils.getIdentifier(R.drawable.class, (String) getItem(position));
 		imageView.setImageBitmap(Cache.getBitmap(mResources, resId));
 
 		return imageView;
