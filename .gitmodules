@@ -1,0 +1,3 @@
+[submodule "libs/android-utils"]
+	path = libs/android-utils
+	url = git@github.com:dlew/android-utils.git
