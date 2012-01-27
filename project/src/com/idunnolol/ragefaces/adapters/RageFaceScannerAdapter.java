@@ -18,7 +18,7 @@ import com.idunnolol.ragefaces.R;
 import com.idunnolol.ragefaces.RageFacesApp;
 import com.idunnolol.ragefaces.data.Cache;
 
-public class RageFaceScannerAdapter extends BaseAdapter implements RawRetriever {
+public class RageFaceScannerAdapter extends BaseAdapter {
 
 	private Resources mResources;
 	private LayoutInflater mInflater;
@@ -81,10 +81,5 @@ public class RageFaceScannerAdapter extends BaseAdapter implements RawRetriever 
 		imageView.setImageBitmap(Cache.getBitmap(mResources, mRageFaces.get(getItem(position))));
 
 		return imageView;
-	}
-
-	@Override
-	public int getRawResourceId(String drawableName) {
-		return mRageFaces.get(drawableName);
 	}
 }

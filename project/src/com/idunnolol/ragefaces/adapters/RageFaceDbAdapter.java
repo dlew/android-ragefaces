@@ -1,6 +1,5 @@
 package com.idunnolol.ragefaces.adapters;
 
-import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -16,9 +15,9 @@ import android.widget.ImageView;
 import com.idunnolol.ragefaces.R;
 import com.idunnolol.ragefaces.data.Cache;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
-import com.idunnolol.ragefaces.utils.ResourceUtils;
+import com.idunnolol.utils.ResourceUtils;
 
-public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
+public class RageFaceDbAdapter extends BaseAdapter {
 
 	private Resources mResources;
 	private LayoutInflater mInflater;
@@ -26,14 +25,10 @@ public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
 	private SQLiteDatabase mDb;
 	private Cursor mCursor;
 
-	// This is just used to speed up the app
-	private HashMap<String, Integer> mResourceIds;
-
 	public RageFaceDbAdapter(Context context) {
 		mResources = context.getResources();
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mDb = DatabaseHelper.getFacesDb(context);
-		mResourceIds = new HashMap<String, Integer>();
 	}
 
 	@Override
@@ -65,23 +60,10 @@ public class RageFaceDbAdapter extends BaseAdapter implements RawRetriever {
 		}
 
 		ImageView imageView = (ImageView) convertView;
-		imageView.setImageBitmap(Cache.getBitmap(mResources, getRawResourceId((String) getItem(position))));
+		int resId = ResourceUtils.getIdentifier(R.raw.class, (String) getItem(position));
+		imageView.setImageBitmap(Cache.getBitmap(mResources, resId));
 
 		return imageView;
-	}
-
-	@Override
-	public int getRawResourceId(String name) {
-		if (mResourceIds.containsKey(name)) {
-			return mResourceIds.get(name);
-		}
-
-		int resId = ResourceUtils.getResourceId(R.raw.class, name);
-		if (resId != -1) {
-			mResourceIds.put(name, resId);
-		}
-
-		return resId;
 	}
 
 	public void filter(List<Integer> categories) {

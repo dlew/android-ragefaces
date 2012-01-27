@@ -33,14 +33,13 @@ import com.idunnolol.ragefaces.R;
 import com.idunnolol.ragefaces.RageFacesApp;
 import com.idunnolol.ragefaces.adapters.RageFaceDbAdapter;
 import com.idunnolol.ragefaces.adapters.RageFaceScannerAdapter;
-import com.idunnolol.ragefaces.adapters.RawRetriever;
 import com.idunnolol.ragefaces.app.fragment.PickerFragment;
 import com.idunnolol.ragefaces.app.fragment.PickerFragment.PickerFragmentListener;
 import com.idunnolol.ragefaces.app.fragment.ViewerFragment;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
 import com.idunnolol.ragefaces.data.Pair;
-import com.idunnolol.ragefaces.utils.ResourceUtils;
 import com.idunnolol.ragefaces.utils.ShareUtils;
+import com.idunnolol.utils.ResourceUtils;
 
 public class RageFacePickerActivity extends FragmentActivity {
 
@@ -128,8 +127,7 @@ public class RageFacePickerActivity extends FragmentActivity {
 
 			public void onFaceClicked(int position) {
 				// Gather some data on what the user selected
-				RawRetriever retriever = (RawRetriever) mAdapter;
-				mRageFaceId = retriever.getRawResourceId((String) mAdapter.getItem(position));
+				mRageFaceId = ResourceUtils.getIdentifier(R.raw.class, (String) mAdapter.getItem(position));
 				mRageFaceName = (String) mAdapter.getItem(position);
 				mRageFaceUri = ShareUtils.loadRageFace(mContext, mRageFaceName, getResId(mRageFaceName));
 
@@ -158,7 +156,7 @@ public class RageFacePickerActivity extends FragmentActivity {
 			while (!c.isAfterLast()) {
 				int id = c.getInt(0);
 				String category = c.getString(1);
-				int resId = ResourceUtils.getResourceId(R.string.class, c.getString(1));
+				int resId = ResourceUtils.getIdentifier(R.string.class, c.getString(1));
 				if (resId != -1) {
 					category = getString(resId);
 				}
@@ -219,8 +217,7 @@ public class RageFacePickerActivity extends FragmentActivity {
 	}
 
 	private int getResId(String rageFaceName) {
-		RawRetriever retriever = (RawRetriever) mAdapter;
-		return retriever.getRawResourceId(rageFaceName);
+		return ResourceUtils.getIdentifier(R.raw.class, rageFaceName);
 	}
 
 	@Override
