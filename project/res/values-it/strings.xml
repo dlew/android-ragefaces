@@ -28,24 +28,24 @@
 	<!-- Help dialog -->
 	<string name="help">Aiuto</string>
 	<!-- Help dialog contents -->
-	<string name="help_msg">Operazioni basilari: clicca su un personaggio e poi scegli cosa farci. \n\nPer inserire un personaggio in una conversazione:\n1. Apri il men� e clicca \"Allega\"\n2. Clicca \"Immagini\"\n3. Clicca \"Rage Faces\"</string>
+	<string name="help_msg">Operazioni base: clicca su un personaggio e poi scegli cosa farci. \n\nPer inserire un personaggio in una conversazione:\n1. Apri il men� e clicca \"Allega\"\n2. Clicca \"Immagini\"\n3. Clicca \"Rage Faces\"</string>
 
 	<!-- About dialog -->
 	<!-- Label for menu option "Info su" -->
-	<string name="about">About</string>
+	<string name="about">Info Su</string>
 	<!-- "About" dialog contents.  Make sure to keep "\n\n" as a newline between each section.  Be sure to leave the %1$s, %2$s, etc. in!  They are important!
 		%1$s == App version
 		%2$s == list of contributors
 		%3$s == list of translators -->
-	<string name="about_msg">Rage Faces %1$s.\n\nCreata da by rkcr.\n\nCollaboratori: %2$s\n\nTraduttori: %3$s\n\nIcona dell\'app ideata da TheFunkyMonk.\n\nTester: mystikalghost</string>
+	<string name="about_msg">Rage Faces %1$s.\n\nCreata da rkcr.\n\nCollaboratori: %2$s\n\nTraduttori: %3$s\n\nIcona dell\'app ideata da TheFunkyMonk.\n\nTester: mystikalghost</string>
 	
 	<!-- Error strings -->
 	<!-- Error message shown to user when the SD card is not mounted -->
-	<string name="err_sd_not_mounted">La SD deve essere montata per usare Rage Faces - problema?</string>
+	<string name="err_sd_not_mounted">La SD deve essere montata per poter usare Rage Faces - problema?</string>
 	<!-- Generic error given when we couldn't initialize the app for some reason -->
 	<string name="err_loading">Impossibile avviare l\'applicazione - problema?</string>
 	<!-- Error when we cannot share a face with another app due to SD card errors -->
-	<string name="err_load_face">Impossibile caricare un personaggio sulla SD - problema?</string>
+	<string name="err_load_face">Impossibile condividere un personaggio per problemi sulla SD</string>
 	
 	<!-- Labels for categories -->
 	<!-- Category label for "Troll" -->
