@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- The name of the app -->
+	<string name="app_name">Rage Faces</string>
+	
+	<!-- Actions dialog -->
+	<!-- Title for dialog that pops up when you click on a face.  (This does not have to be directly translated, it is a joke) -->
+	<string name="dialog_actions_title">你想要…？</string>
+	<!-- Dialog option for sharing a face -->
+	<string name="dialog_actions_opt_share">分享</string>
+	<!-- Dialog option for sharing a face (when the user has the HTC Sense "Messaging" app) -->
+	<string name="dialog_actions_opt_share_sense">附加在「訊息」中送出</string>
+	<!-- Dialog option to view the face in the app -->
+	<string name="dialog_actions_opt_view">觀賞此表情</string>
+	<!-- Dialog option to add the face to the Gallery -->
+	<string name="dialog_actions_opt_add_to_gallery">加至圖庫</string>
+	
+	<!-- Toast popup notification when successfully added a rage face to the Gallery -->
+	<string name="added_face_to_gallery_toast">已將選定的表情加至圖庫中！</string>
+	
+	<!-- Filters -->
+	<!-- Label for button to activate a filter -->
+	<string name="filter">點我篩選</string>
+	<!-- Title for filter dialog -->
+	<string name="dialog_filter_title">選擇目錄</string>
+	<!-- Filter dialog button that shows all faces (clears the filter) -->
+	<string name="dialog_filter_clear">顯示全部</string>
+	<!-- Help dialog -->
+	<string name="help">協助</string>
+	<!-- Help dialog contents -->
+	<string name="help_msg">基本使用方式：點選一個表情，然後看看你想怎麼運用它。\n\n想要在現有的對話中插入一個表情：\n1. 開啟選單並點一下\"附加\"\n2. 點一下 \"圖片\"\n3. 點一下 \"Rage Faces\"</string>
+	
+	<!-- About dialog -->
+	<!-- Label for menu option "About" -->
+	<string name="about">關於</string>
+	<!-- "About" dialog contents.  Make sure to keep "\n\n" as a newline between each section.  Be sure to leave the %1$s, %2$s, etc. in!  They are important!
+		%1$s == App version
+		%2$s == list of contributors
+		%3$s == list of translators -->
+	<string name="about_msg">Rage Faces %1$s.\n\n由 rkcr 編寫。\n\n投稿人：%2$s\n\n譯者：%3$s\n\n應用程式圖示作者：TheFunkyMonk。\n\n測試員：mystikalghost</string>
+	
+	<!-- Error strings -->
+	<!-- Error message shown to user when the SD card is not mounted -->
+	<string name="err_sd_not_mounted">你必須裝載 SD 卡才能使用 Rage Faces - 有問題嗎？</string>
+	<!-- Generic error given when we couldn't initialize the app for some reason -->
+	<string name="err_loading">無法初始化 Rage Face 應用程式 - 有問題嗎？</string>
+	<!-- Error when we cannot share a face with another app due to SD card errors -->
+	<string name="err_load_face">無法將 Rage Face 載入至 SD 卡 - 有問題嗎？</string>
+	
+	<!-- Labels for categories -->
+	<!-- Category label for "Troll" -->
+	<string name="category_troll">穴魔大集合</string>
+	<!-- Category label for "Female" -->
+	<string name="category_female">女性</string>
+	<!-- Category label for "Rage" -->
+	<string name="category_rage">怒！</string>
+	<!-- Category label for "Thinking" -->
+	<string name="category_thinking">費思量</string>
+	<!-- Category label for "Forever Alone" -->
+	<string name="category_forever_alone">天煞孤星</string>
+	<!-- Category label for "Angry" -->
+	<string name="category_angry">生氣</string>
+	<!-- Category label for "Victory" -->
+	<string name="category_victory">勝利</string>
+	<!-- Category label for "Me Gusta" -->
+	<string name="category_me_gusta">我☆喜☆番 (Me Gusta)</string>
+	<!-- Category label for "Tears" -->
+	<string name="category_tears">淚流滿面</string>
+	<!-- Category label for "Trees" -->
+	<string name="category_trees">謎幻</string>
+	<!-- Category label for "Laughing" -->
+	<string name="category_laughing">忍俊不住</string>
+	<!-- Category label for "Animal" -->
+	<string name="category_animal">小動物</string>
+	<!-- Category label for "Pleasure" -->
+	<string name="category_pleasure">愉悅</string>
+	<!-- Category label for "Poker Face" -->
+	<string name="category_poker_face">撲克臉</string>
+	<!-- Category label for "Okay" -->
+	<string name="category_okay">好啦…</string>
+	<!-- Category label for "Male" -->
+	<string name="category_male">男性</string>
+	<!-- Category label for "Stick Figure" -->
+	<string name="category_stick_figure">火柴人</string>
+	<!-- Category label for "Surprised" -->
+	<string name="category_surprised">吃驚</string>
+	<!-- Category label for "Happy" -->
+	<string name="category_happy">開心</string>
+	<!-- Category label for "Dad" -->
+	<string name="category_dad">老爹表情</string>
+	<!-- Category label for "Reddit" -->
+	<string name="category_reddit">讀我小精靈 (Reddit)</string>
+	<!-- Category label for "Seriously?" -->
+	<string name="category_seriously">你認真的嗎？</string>
+	<!-- Category label for "No Text" -->
+	<string name="category_no_text">純圖片</string>
+	<!-- Category label for "Challenged" -->
+	<string name="category_challenged">被挑戰</string>
+	<!-- Category label for "Text" -->
+	<string name="category_text">圖片含文字</string>
+	<!-- Category label for "Horror" -->
+	<string name="category_horror">恐怖</string>
+	<!-- Category label for "Drunk" -->
+	<string name="category_drunk">飲酒</string>
+	<!-- Category label for "Evil" -->
+	<string name="category_evil">歪腦筋</string>
+	<!-- Category label for "Sad" -->
+	<string name="category_sad">悲傷</string>
+	<!-- Category label for "Neutral" -->
+	<string name="category_neutral">我淡定，我中立</string>
+	<!-- Category label for "Celebrity" -->
+	<string name="category_celebrity">名人在此！</string>
+	<!-- Category label for "Fuck Yea" -->
+	<string name="category_fuck_yea">讚啦！</string>
+	<!-- Category label for "Cereal" -->
+	<string name="category_cereal">麥片時光</string>
+	<!-- Category label for "Grandma" -->
+	<string name="category_grandma">家有嬤嬤</string>
+	<!-- Category label for "Inglip" -->
+	<string name="category_inglip">陰溝裡傳奇 (Inglip)</string>
+	<!-- Category label for "Awe" -->
+	<string name="category_awe">驚畏</string>
+	<!-- Category label for "Disappointed" -->
+	<string name="category_disappointed">失望</string>
+	<!-- Category label for "Why" -->
+	<string name="category_why">為什麼！</string>
+	<!-- Category label for "Shit" -->
+	<string name="category_shit">話屎尿</string>
+	<!-- Category label for "Milk" -->
+	<string name="category_milk">無意中聽到…</string>
+</resources>
