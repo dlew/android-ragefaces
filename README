@@ -8,20 +8,27 @@ Enjoy.  Or don't enjoy.  Whatever.
 Adding Faces
 ------------
 
-If you want to add your own faces, they must be:
+The build process for new faces go along two paths: easy (lacking features) and hard.
 
-1. In PNG format.
+**EASY MODE**: Place JPG images into the /project/res/raw/ directory, and delete
+/project/assets/faces.db.  It is easy to add new faces, but you won't be
+able to filter.  Also, performance may be degraded due to the size of the images
+being loaded into memory.
 
-2. Placed into the /res/raw/ directory.
+In addition, I haven't tested this version in ages.  It may be buggy.
 
-There are two ways in which Rage Faces finds faces: simple mode, and db mode.
-Simple mode is, as it sounds, quite simple; it allows ones to add faces
-quickly and easily, but gives you little control over the display order
-or filtering.  Db mode uses a database to allow more control over the
-faces, in particular adding simplistic category ordering and filtering.
+**HARD MODE**: This version is based off of faces.db, as well as thumbnail drawables.
+It is a multi-step process:
 
-To use simple mode, simply ensure that assets/faces.db is deleted.  The app
-will just scan /res/raw/ and grab all PNGs from that directory.
+1. Gather source PNG faces.
 
-To use db mode, make sure that assets/faces.db exists and link the faces
-in /res/raw/ to ids in the db.
+2. Run them through /scripts/convert.py.  It will spit out both JPEG versions
+   (that are shared) and JPEG thumbnails (that are shown in the app itself).
+   Add these to the /project/ directory.
+   
+3. Add new faces to faces.db using /scripts/db-tools.py.  Add the improved
+   faces.db to /project/assets/faces.db.  (You could add the faces by hand
+   to the db but that's a real pain.)
+
+4. Bump /project/src/com/idunnolol/ragefaces/data/DatabaseHelper.DB_VERSION.
+   (The project uses this to determine when to reload faces.db from the APK.)
