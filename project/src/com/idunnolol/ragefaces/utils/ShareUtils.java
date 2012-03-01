@@ -3,7 +3,6 @@ package com.idunnolol.ragefaces.utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -12,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
@@ -75,19 +75,14 @@ public class ShareUtils {
 			return null;
 		}
 
-		File rageFaceFile = new File(getRageDir(context), name + ".jpg");
+		File rageFaceFile = new File(getRageDir(context), name + "_v2.jpg");
 		if (!rageFaceFile.exists()) {
 			// File doesn't exist, copy it in
 			try {
-				InputStream in = context.getResources().openRawResource(resId);
 				OutputStream out = new FileOutputStream(rageFaceFile);
-				byte[] buffer = new byte[1024];
-				int length;
-				while ((length = in.read(buffer)) > 0) {
-					out.write(buffer, 0, length);
-				}
+				Bitmap source = BitmapFactory.decodeStream(context.getResources().openRawResource(resId));
+				source.compress(CompressFormat.JPEG, 75, out);
 				out.close();
-				in.close();
 			}
 			catch (IOException e) {
 				Log.e("Could not copy ragefaces file " + rageFaceFile.getAbsolutePath(), e);
