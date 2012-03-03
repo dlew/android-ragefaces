@@ -88,6 +88,8 @@ def print_category_strings():
 # File format is:
 # <filename>,<category-1>,...,<category-n>
 def read_file(infile, db):
+    print("Adding faces from '%s'..." % infile)
+
     c = db.cursor()
 
     # Read the file
@@ -131,10 +133,11 @@ def read_file(infile, db):
         c.execute("SELECT _id FROM Faces WHERE drawable=?", (face,))
         row = c.fetchone()
         if row is None:
+            print("Adding face %s" % face)
             c.execute("INSERT INTO Faces (drawable) VALUES (?)", (face,))
             faces[face] = c.lastrowid
         else:
-            faces[face] = row[0]            
+            faces[face] = row[0]
 
     # Link those faces to categories
     for row in data:
