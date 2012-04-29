@@ -38,6 +38,13 @@
 		%2$s == list of contributors
 		%3$s == list of translators -->
 	<string name="about_msg">Rage Faces %1$s.\n\nWritten by rkcr.\n\nContributors: %2$s\n\nTranslators: %3$s\n\nApp icon by TheFunkyMonk.\n\nTest helper: mystikalghost</string>
+
+	<!-- Settings -->
+	<string name="settings">Settings</string>
+	<string name="format_title">Output Format</string>
+	<string name="format_summary">If you are having trouble sending rage faces, try changing the output format</string>
+	<string name="format_jpeg">JPEG</string>
+	<string name="format_png">PNG</string>
 	
 	<!-- Error strings -->
 	<!-- Error message shown to user when the SD card is not mounted -->

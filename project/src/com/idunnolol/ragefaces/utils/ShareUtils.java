@@ -3,11 +3,13 @@ package com.idunnolol.ragefaces.utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
@@ -75,7 +78,9 @@ public class ShareUtils {
 			return null;
 		}
 
-		File rageFaceFile = new File(getRageDir(context), "shared_face.jpg");
+		boolean useJpeg = useJpeg(context);
+
+		File rageFaceFile = new File(getRageDir(context), (useJpeg) ? "shared_face.jpg" : "shared_face.png");
 		if (rageFaceFile.exists()) {
 			rageFaceFile.delete();
 		}
@@ -83,8 +88,21 @@ public class ShareUtils {
 		// File doesn't exist, copy it in
 		try {
 			OutputStream out = new FileOutputStream(rageFaceFile);
-			Bitmap source = BitmapFactory.decodeStream(context.getResources().openRawResource(resId));
-			source.compress(CompressFormat.JPEG, 75, out);
+
+			if (useJpeg) {
+				Bitmap source = BitmapFactory.decodeStream(context.getResources().openRawResource(resId));
+				source.compress(CompressFormat.JPEG, 75, out);
+			}
+			else {
+				InputStream in = context.getResources().openRawResource(resId);
+				byte[] buffer = new byte[1024];
+				int length;
+				while ((length = in.read(buffer)) > 0) {
+					out.write(buffer, 0, length);
+				}
+				in.close();
+			}
+
 			out.close();
 		}
 		catch (IOException e) {
@@ -134,7 +152,7 @@ public class ShareUtils {
 	public static void shareRageFace(Context context, Uri rageFaceUri) {
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.putExtra(Intent.EXTRA_STREAM, rageFaceUri);
-		intent.setType("image/jpeg");
+		intent.setType(getShareType(context));
 
 		Intent chooser = Intent.createChooser(intent, null);
 		context.startActivity(chooser);
@@ -149,7 +167,7 @@ public class ShareUtils {
 	public static boolean hasSenseMessagingApp(Context context, Uri rageFaceUri) {
 		Intent dummy = new Intent("android.intent.action.SEND_MSG");
 		dummy.putExtra(Intent.EXTRA_STREAM, rageFaceUri);
-		dummy.setType("image/jpeg");
+		dummy.setType(getShareType(context));
 
 		PackageManager packageManager = context.getPackageManager();
 		List<ResolveInfo> list = packageManager.queryIntentActivities(dummy, PackageManager.MATCH_DEFAULT_ONLY);
@@ -159,8 +177,19 @@ public class ShareUtils {
 	public static void shareRageFaceSenseMessaging(Context context, Uri rageFaceUri) {
 		Intent intent = new Intent("android.intent.action.SEND_MSG");
 		intent.putExtra(Intent.EXTRA_STREAM, rageFaceUri);
-		intent.setType("image/jpeg");
+		intent.setType(getShareType(context));
 		context.startActivity(intent);
+	}
+
+	public static String getShareType(Context context) {
+		return (useJpeg(context)) ? "image/jpeg" : "image/png";
+	}
+
+	public static boolean useJpeg(Context context) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		String outputPref = (prefs.getString(context.getString(R.string.key_format),
+				context.getString(R.string.key_format_default)));
+		return outputPref.equals(context.getString(R.string.key_format_jpeg));
 	}
 
 	//////////////////////////////////////////////////////////////////////////

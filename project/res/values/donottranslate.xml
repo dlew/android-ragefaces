@@ -3,4 +3,9 @@
 
     <string name="tag_picker_fragment">picker_fragment</string>
 
+    <string name="key_format">FORMAT</string>
+    <string name="key_format_jpeg">JPEG</string>
+    <string name="key_format_png">PNG</string>
+    <string name="key_format_default">@string/key_format_jpeg</string>
+
 </resources>

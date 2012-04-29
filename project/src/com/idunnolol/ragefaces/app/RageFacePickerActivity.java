@@ -225,6 +225,9 @@ public class RageFacePickerActivity extends FragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.settings:
+			startActivity(new Intent(this, SettingsActivity.class));
+			return true;
 		case R.id.help:
 			showDialog(DIALOG_HELP);
 			return true;

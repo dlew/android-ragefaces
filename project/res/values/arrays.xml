@@ -4,7 +4,7 @@
     <string-array name="contributors">
         <item>nivekmai</item>
     </string-array>
-    
+
     <string-array name="translators">
         <item>mischi</item>
         <item>Oliver Thomas Cervera</item>
@@ -14,6 +14,16 @@
         <item>Brell Li</item>
         <item>Eric Garcia</item>
         <item>Erich Souza</item>
+    </string-array>
+
+    <string-array name="output_entries">
+        <item>@string/format_jpeg</item>
+        <item>@string/format_png</item>
+    </string-array>
+
+    <string-array name="output_entry_values">
+        <item>@string/key_format_jpeg</item>
+        <item>@string/key_format_png</item>
     </string-array>
 
 </resources>
