@@ -76,8 +76,8 @@ def convert(faces_dir, out_dir, size, quality):
                 out_file = os.path.join(get_density_dir(out_dir, density), filename)[:-4] + ".jpg"
                 resized_im.save(out_file, "JPEG", quality=quality)
 
-            # Save a JPG version for /raw/
-            im.save(os.path.join(raw_dir, filename)[:-4] + ".jpg", "JPEG")
+            # Save the PNG version for /raw/
+            shutil.copy(path, os.path.join(raw_dir, filename))
 
 if __name__ == "__main__":
     usage = "usage: %prog [options]"
