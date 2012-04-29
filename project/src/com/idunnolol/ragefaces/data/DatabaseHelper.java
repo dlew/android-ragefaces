@@ -19,7 +19,7 @@ import com.idunnolol.utils.Log;
 public class DatabaseHelper {
 
 	// Increase this number to cause a DB update
-	private static final int DB_VERSION = 8;
+	private static final int DB_VERSION = 9;
 
 	private static final String DB_NAME = "faces.db";
 
