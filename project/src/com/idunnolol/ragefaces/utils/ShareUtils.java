@@ -75,20 +75,22 @@ public class ShareUtils {
 			return null;
 		}
 
-		File rageFaceFile = new File(getRageDir(context), name + "_v2.jpg");
-		if (!rageFaceFile.exists()) {
-			// File doesn't exist, copy it in
-			try {
-				OutputStream out = new FileOutputStream(rageFaceFile);
-				Bitmap source = BitmapFactory.decodeStream(context.getResources().openRawResource(resId));
-				source.compress(CompressFormat.JPEG, 75, out);
-				out.close();
-			}
-			catch (IOException e) {
-				Log.e("Could not copy ragefaces file " + rageFaceFile.getAbsolutePath(), e);
-				Toast.makeText(context, context.getString(R.string.err_load_face), Toast.LENGTH_LONG).show();
-				return null;
-			}
+		File rageFaceFile = new File(getRageDir(context), "shared_face.jpg");
+		if (rageFaceFile.exists()) {
+			rageFaceFile.delete();
+		}
+
+		// File doesn't exist, copy it in
+		try {
+			OutputStream out = new FileOutputStream(rageFaceFile);
+			Bitmap source = BitmapFactory.decodeStream(context.getResources().openRawResource(resId));
+			source.compress(CompressFormat.JPEG, 75, out);
+			out.close();
+		}
+		catch (IOException e) {
+			Log.e("Could not copy ragefaces file " + rageFaceFile.getAbsolutePath(), e);
+			Toast.makeText(context, context.getString(R.string.err_load_face), Toast.LENGTH_LONG).show();
+			return null;
 		}
 
 		return Uri.fromFile(rageFaceFile);
