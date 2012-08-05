@@ -39,6 +39,13 @@
 		%3$s == list of translators -->
 	<string name="about_msg">Rage Faces %1$s.\n\nGeschrieben von rkcr.\n\nMitwirkende: %2$s\n\nÜbersetzer: %3$s\n\nApp Icon von TheFunkyMonk.\n\nTester: mystikalghost</string>
 	
+	<!-- Settings -->
+	<string name="settings">Einstellungen</string>
+	<string name="format_title">Ausgabe Format</string>
+	<string name="format_summary">Wenn du ein Problem mit dem Senden von Gesichtern hast, wähle ein anderes Format aus.</string>
+	<string name="format_jpeg">JPEG</string>
+	<string name="format_png">PNG</string>
+	
 	<!-- Error strings -->
 	<!-- Error message shown to user when the SD card is not mounted -->
 	<string name="err_sd_not_mounted">SD Karte muss eingebunden sein, um Rage Faces zu nutzen - problem?</string>
