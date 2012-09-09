@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -223,10 +224,12 @@ public class ShareUtils {
 
 		public static void checkAvailable() { }
 
+		@TargetApi(8)
 		public static String getPicturesDirectoryType() {
 			return Environment.DIRECTORY_PICTURES;
 		}
 
+		@TargetApi(8)
 		public static File getExternalFilesDir(Context context, String type) {
 			return context.getExternalFilesDir(type);
 		}
