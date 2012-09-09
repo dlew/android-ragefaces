@@ -135,4 +135,7 @@
 	<string name="category_shit">Shit</string>
 	<!-- Category label for "Milk" -->
 	<string name="category_milk">Milk</string>
+	
+	<!-- Readme file that goes into share dir -->
+	<string name="readme_text">This directory is used by the Rage Faces app to share faces with other applications.  If you are no longer using Rage Faces (or you want to clean out all the saved files here) it is perfectly safe to delete this directory.  (If you are still using Rage Faces it will be recreated the next time you launch the application.)</string>
 </resources>

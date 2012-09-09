@@ -1,10 +1,12 @@
 package com.idunnolol.ragefaces.utils;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.List;
 
 import android.annotation.TargetApi;
@@ -28,6 +30,8 @@ import com.idunnolol.utils.Log;
 public class ShareUtils {
 
 	private static boolean sUseBackupRageDir = false;
+
+	private static final String README_FILE = "README.TXT";
 
 	/**
 	 * Loads the media drive directory where we place the rage faces for sharing.
@@ -62,6 +66,25 @@ public class ShareUtils {
 			}
 		}
 
+		File readmeFile = new File(rageDir, README_FILE);
+		if (!readmeFile.exists()) {
+			Log.d("readme does not exist, creating it.");
+
+			try {
+				readmeFile.createNewFile();
+
+				// Write a short readme
+				FileOutputStream fOut = new FileOutputStream(readmeFile);
+				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fOut));
+				writer.write(context.getString(R.string.readme_text));
+				writer.close();
+			}
+			catch (IOException e) {
+				Log.e("Could not create readme file", e);
+				return R.string.err_loading;
+			}
+		}
+
 		return 0;
 	}
 
@@ -74,7 +97,7 @@ public class ShareUtils {
 	 * @return the URI leading to the loaded rage face, or null if it could not be loaded 
 	 */
 	public static Uri loadRageFace(Context context, String name, int resId) {
-		Log.d("Loading rage face \"" + name + "\"");
+		Log.i("Loading rage face \"" + name + "\"");
 
 		if (!isMediaMounted()) {
 			Toast.makeText(context, context.getString(R.string.err_sd_not_mounted), Toast.LENGTH_LONG).show();
@@ -86,6 +109,7 @@ public class ShareUtils {
 		String type = (useJpeg) ? ".jpg" : ".png";
 		String filename = name + type;
 		File rageFaceFile = new File(getRageDir(context), filename);
+		Log.d("Face filename: " + rageFaceFile.toString());
 		if (rageFaceFile.exists()) {
 			Log.v("Previous version of \"" + filename + "\" exists, deleting.");
 			rageFaceFile.delete();
