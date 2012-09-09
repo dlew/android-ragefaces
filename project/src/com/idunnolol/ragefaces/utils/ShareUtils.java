@@ -73,6 +73,8 @@ public class ShareUtils {
 	 * @return the URI leading to the loaded rage face, or null if it could not be loaded 
 	 */
 	public static Uri loadRageFace(Context context, String name, int resId) {
+		Log.d("Loading rage face \"" + name + "\"");
+
 		if (!isMediaMounted()) {
 			Toast.makeText(context, context.getString(R.string.err_sd_not_mounted), Toast.LENGTH_LONG).show();
 			return null;
@@ -80,8 +82,11 @@ public class ShareUtils {
 
 		boolean useJpeg = useJpeg(context);
 
-		File rageFaceFile = new File(getRageDir(context), (useJpeg) ? "shared_face.jpg" : "shared_face.png");
+		String type = (useJpeg) ? ".jpg" : ".png";
+		String filename = name + type;
+		File rageFaceFile = new File(getRageDir(context), filename);
 		if (rageFaceFile.exists()) {
+			Log.v("Previous version of \"" + filename + "\" exists, deleting.");
 			rageFaceFile.delete();
 		}
 
