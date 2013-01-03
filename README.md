@@ -1,17 +1,18 @@
 Android Rage Faces
-===
+------------------
 
 This is the source code for the free Android application "Rage Faces".
 
 Enjoy.  Or don't enjoy.  Whatever.
 
 Adding Faces
-===
+------------------
+
 
 The build process for new faces go along two paths: easy and hard.
 
-**EASY MODE**
-------------------
+Easy Mode
+===
 
 
 Place your PNG anywhere.  Run the `add-image.py` script, specifying the path to your image and the category to add it to.
@@ -24,8 +25,8 @@ Place your PNG anywhere.  Run the `add-image.py` script, specifying the path to 
 
 
 
-**HARD MODE**
----------
+Hard Mode
+===
 This version is based off of faces.db, as well as thumbnail drawables.
 It is a multi-step process:
 
