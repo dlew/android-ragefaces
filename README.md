@@ -11,8 +11,8 @@ Adding Faces
 
 The build process for new faces go along two paths: easy and hard.
 
-Easy Mode
-===
+#### Easy Mode
+
 
 
 Place your PNG anywhere.  Run the `add-image.py` script, specifying the path to your image and the category to add it to.
@@ -24,9 +24,10 @@ Place your PNG anywhere.  Run the `add-image.py` script, specifying the path to 
 `-c` is the category to add it to. A list of categories is visible at the [top of this script](https://github.com/mendhak/android-ragefaces/blob/master/scripts/db-tools.py).
 
 
+Bump /project/src/com/idunnolol/ragefaces/data/DatabaseHelper.DB_VERSION. (The project uses this to determine when to reload faces.db from the APK.)
 
-Hard Mode
-===
+#### Hard Mode
+
 This version is based off of faces.db, as well as thumbnail drawables.
 It is a multi-step process:
 
