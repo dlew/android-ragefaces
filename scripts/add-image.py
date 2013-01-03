@@ -23,15 +23,16 @@ if __name__ == "__main__":
     print "Copying file to faces directory"
     shutil.copy(options.file, faces_directory)
 
+
+    out_directory = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'out'))
+
     print "Converting image"
-    subprocess.Popen( "python " +  os.path.abspath(os.path.join(os.path.dirname( __file__ ), "convert.py")) + " -f " + faces_directory, shell=True)
+    subprocess.Popen( "python " +  os.path.abspath(os.path.join(os.path.dirname( __file__ ), "convert.py")) + " -f " + faces_directory + " -o " + out_directory, shell=True)
 
     print "Sleep 3 seconds"
     time.sleep(3)
 
     filename_without_extension = os.path.splitext(os.path.basename(options.file))[0] 
-
-    out_directory = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'out'))
 
     print "Copying file to various DPI directories"
 
@@ -75,7 +76,7 @@ if __name__ == "__main__":
 
     print "Deleting CSV and out directory"
     os.remove("newface.csv")
-    shutil.rmtree("out", ignore_errors=True)
+    shutil.rmtree(out_directory, ignore_errors=True)
 
 
 #1 - Copy to faces/
