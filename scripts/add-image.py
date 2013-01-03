@@ -79,10 +79,4 @@ if __name__ == "__main__":
     shutil.rmtree(out_directory, ignore_errors=True)
 
 
-#1 - Copy to faces/
-#1 - convert.py python scripts/convert.py 
-#2 - Copy from out/... to /res/...
-#3 - Create CSV faces.csv
-#4 - db-tools.py python scripts/db-tools.py -f project/assets/faces.db -a faces.csv 
-#5 - delete faces.csv
 
