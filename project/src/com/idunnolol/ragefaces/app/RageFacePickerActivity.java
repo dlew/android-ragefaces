@@ -121,7 +121,7 @@ public class RageFacePickerActivity extends FragmentActivity {
 		mPickerFragment.displayFaces(mAdapter);
 		mPickerFragment.setListener(new PickerFragmentListener() {
 			public void onFilterClicked() {
-				showDialog(DIALOG_FILTER);
+				openFilter();
 			}
 
 			public void onFaceClicked(int position) {
@@ -225,6 +225,9 @@ public class RageFacePickerActivity extends FragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.filter:
+			openFilter();
+			return true;
 		case R.id.settings:
 			startActivity(new Intent(this, SettingsActivity.class));
 			return true;
@@ -369,6 +372,10 @@ public class RageFacePickerActivity extends FragmentActivity {
 
 	//////////////////////////////////////////////////////////////////////////
 	// Filter stuff
+
+	public void openFilter() {
+		showDialog(DIALOG_FILTER);
+	}
 
 	public void clearFilter() {
 		filter(-1);

@@ -28,6 +28,9 @@ public class PickerFragment extends Fragment {
 	private GridView mGridView;
 	private ViewGroup mButtonBar;
 
+	// If the system is using v11+ action bars, hide button bar
+	private boolean mHideButtonBar;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.main, container, false);
@@ -51,6 +54,11 @@ public class PickerFragment extends Fragment {
 				onFilterClicked();
 			}
 		});
+
+		mHideButtonBar = getResources().getBoolean(R.bool.hide_filter_bar);
+		if (mHideButtonBar) {
+			mButtonBarVisibility = View.GONE;
+		}
 
 		// Load initial data
 		loadMessage();
@@ -91,7 +99,13 @@ public class PickerFragment extends Fragment {
 	}
 
 	public void setButtonBarVisibility(int visibility) {
-		mButtonBarVisibility = visibility;
+		if (mHideButtonBar) {
+			mButtonBarVisibility = View.GONE;
+		}
+		else {
+			mButtonBarVisibility = visibility;
+		}
+
 		loadButtonBar();
 	}
 
