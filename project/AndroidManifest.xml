@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.idunnolol.ragefaces"
-	android:versionCode="21"
-	android:versionName="1.10.0"
+	android:versionCode="22"
+	android:versionName="1.11.0"
 	android:installLocation="auto">
 
 	<supports-screens
@@ -18,7 +18,7 @@
 
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
-	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="15" />
+	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="17" />
 
 	<application
 		android:icon="@drawable/icon"
