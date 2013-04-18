@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:background="@android:color/white">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
 
-	<!-- The error screen -->
-	<LinearLayout
-		android:id="@+id/LoadingContainer"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:orientation="vertical"
-		android:gravity="center">
-		<TextView
-			android:id="@+id/Message"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:gravity="center"
-			android:padding="10dp"
-			android:textColor="@android:color/black"
-			android:textStyle="bold"
-			android:textSize="20sp" />
-	</LinearLayout>
+    <!-- The error screen -->
 
-	<!-- The GridView for displaying rage faces -->
-	<GridView
-		android:id="@+id/GridView"
-		android:layout_width="fill_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:columnWidth="@dimen/face_colwidth"
-		android:numColumns="auto_fit"
-		android:verticalSpacing="10dp"
-		android:horizontalSpacing="10dp"
-		android:stretchMode="columnWidth"
-		android:gravity="center"
-		android:cacheColorHint="@android:color/white"
-		android:visibility="gone" />
+    <LinearLayout
+        android:id="@+id/LoadingContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
 
-	<LinearLayout
-		android:id="@+id/button_bar_layout"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		style="@android:style/ButtonBar">
-		<Button
-			android:id="@+id/filter_button"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/filter" />
-	</LinearLayout>
+        <TextView
+            android:id="@+id/Message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- The GridView for displaying rage faces -->
+
+    <GridView
+        android:id="@+id/GridView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:cacheColorHint="@android:color/white"
+        android:columnWidth="@dimen/face_colwidth"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/button_bar_layout"
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/filter_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/filter" />
+    </LinearLayout>
+
 </LinearLayout>
