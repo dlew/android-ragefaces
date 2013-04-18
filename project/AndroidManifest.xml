@@ -27,7 +27,8 @@
         android:name=".RageFacesApp"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:allowBackup="true" >
         <activity
             android:name=".RageFacePickerActivity"
             android:theme="@android:style/Theme.NoDisplay" >
