@@ -1,5 +1,6 @@
 package com.idunnolol.ragefaces;
 
+import com.crashlytics.android.Crashlytics;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ public class RageFacePickerActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		Crashlytics.start(this);
 		startActivity(new Intent(this, com.idunnolol.ragefaces.app.RageFacePickerActivity.class));
 		finish();
 	}

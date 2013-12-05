@@ -23,6 +23,8 @@
         android:minSdkVersion="4"
         android:targetSdkVersion="17" />
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".RageFacesApp"
         android:icon="@drawable/icon"
@@ -53,6 +55,7 @@
         </activity>
         <activity android:name=".app.RageFaceViewerActivity" />
         <activity android:name=".app.SettingsActivity" />
+        <meta-data android:name="com.crashlytics.ApiKey" android:value="137f87beecc9964a6cd6868b3e04ec8ba452fe5e"/>
     </application>
 
 </manifest>
