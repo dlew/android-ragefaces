@@ -14,7 +14,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 
-import com.idunnolol.utils.Log;
+import com.danlew.utils.Log;
 
 public class DatabaseHelper {
 

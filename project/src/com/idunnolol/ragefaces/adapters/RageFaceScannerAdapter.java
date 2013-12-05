@@ -13,10 +13,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.danlew.utils.Log;
+import com.danlew.utils.ResourceUtils;
 import com.idunnolol.ragefaces.R;
 import com.idunnolol.ragefaces.data.Cache;
-import com.idunnolol.utils.Log;
-import com.idunnolol.utils.ResourceUtils;
 
 public class RageFaceScannerAdapter extends BaseAdapter {
 

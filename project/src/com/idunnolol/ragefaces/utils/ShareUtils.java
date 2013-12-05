@@ -24,8 +24,8 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
+import com.danlew.utils.Log;
 import com.idunnolol.ragefaces.R;
-import com.idunnolol.utils.Log;
 
 public class ShareUtils {
 

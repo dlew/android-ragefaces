@@ -1,8 +1,8 @@
 package com.idunnolol.ragefaces;
 
-import com.idunnolol.utils.Log;
-
 import android.app.Application;
+
+import com.danlew.utils.Log;
 
 public class RageFacesApp extends Application {
 

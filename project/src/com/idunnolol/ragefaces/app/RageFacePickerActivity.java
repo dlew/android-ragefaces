@@ -28,6 +28,8 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
+import com.danlew.utils.Log;
+import com.danlew.utils.ResourceUtils;
 import com.idunnolol.ragefaces.R;
 import com.idunnolol.ragefaces.adapters.RageFaceDbAdapter;
 import com.idunnolol.ragefaces.adapters.RageFaceScannerAdapter;
@@ -37,8 +39,6 @@ import com.idunnolol.ragefaces.app.fragment.ViewerFragment;
 import com.idunnolol.ragefaces.data.DatabaseHelper;
 import com.idunnolol.ragefaces.data.Pair;
 import com.idunnolol.ragefaces.utils.ShareUtils;
-import com.idunnolol.utils.Log;
-import com.idunnolol.utils.ResourceUtils;
 
 public class RageFacePickerActivity extends FragmentActivity {
 
