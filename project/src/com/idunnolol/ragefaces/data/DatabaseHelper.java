@@ -28,8 +28,8 @@ public class DatabaseHelper {
 	public static boolean createOrUpdateDatabase(Context context) {
 		boolean createDb = false;
 
-		File dbDir = getDbDir(context);
-		File dbFile = getDbPath(context);
+		File dbFile = context.getDatabasePath(DB_NAME);
+		File dbDir = dbFile.getParentFile();
 		if (!dbDir.exists()) {
 			Log.i("Faces database does not exist, creating it.");
 			dbDir.mkdir();
@@ -85,16 +85,8 @@ public class DatabaseHelper {
 	}
 
 	public static SQLiteDatabase getFacesDb(Context context) {
-		File dbPath = getDbPath(context);
-		return SQLiteDatabase.openDatabase(dbPath.getPath(), null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
-	}
-
-	private static File getDbDir(Context context) {
-		return new File("/data/data/" + context.getPackageName() + "/databases/");
-	}
-
-	private static File getDbPath(Context context) {
-		return new File(getDbDir(context), DB_NAME);
+		return SQLiteDatabase.openDatabase(context.getDatabasePath(DB_NAME).getPath(), null,
+				SQLiteDatabase.NO_LOCALIZED_COLLATORS);
 	}
 
 	private static final String QUERY_BEGINNING = "SELECT F._id, F.drawable FROM (SELECT FC.faceId AS faceId, min(C.position) AS pos FROM FaceCategories FC, Categories C WHERE FC.categoryId == C._id ";

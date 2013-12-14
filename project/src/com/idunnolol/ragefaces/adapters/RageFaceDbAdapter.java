@@ -26,13 +26,9 @@ public class RageFaceDbAdapter extends BaseAdapter {
 	private Cursor mCursor;
 
 	public RageFaceDbAdapter(Context context) {
-		this(context, DatabaseHelper.getFacesDb(context));
-	}
-
-	public RageFaceDbAdapter(Context context, SQLiteDatabase db) {
 		mResources = context.getResources();
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mDb = db;
+		mDb = DatabaseHelper.getFacesDb(context);
 	}
 
 	@Override
