@@ -1,28 +1,27 @@
 package com.idunnolol.ragefaces.data;
 
-import java.lang.ref.SoftReference;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.util.LruCache;
 
 public class Cache {
 
-	private static final Map<Integer, SoftReference<Bitmap>> mCache = new ConcurrentHashMap<Integer, SoftReference<Bitmap>>();
+	private static final int MAX_MEMORY = (int) (Runtime.getRuntime().maxMemory() / 1024);
+
+	private static final LruCache<Integer, Bitmap> sMemoryCache = new LruCache<Integer, Bitmap>(MAX_MEMORY / 3) {
+		@Override
+		protected int sizeOf(Integer key, Bitmap bitmap) {
+			return (bitmap.getRowBytes() * bitmap.getHeight()) / 1024;
+		}
+	};
 
 	public static Bitmap getBitmap(Resources res, Integer id) {
-		Bitmap bitmap = null;
-
-		SoftReference<Bitmap> ref = mCache.get(id);
-		if (ref != null) {
-			bitmap = ref.get();
-		}
+		Bitmap bitmap = sMemoryCache.get(id);
 
 		if (bitmap == null) {
 			bitmap = BitmapFactory.decodeResource(res, id);
-			mCache.put(id, new SoftReference<Bitmap>(bitmap));
+			sMemoryCache.put(id, bitmap);
 		}
 
 		return bitmap;
