@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.danlew.utils.Log;
 import com.danlew.utils.ResourceUtils;
 import com.idunnolol.ragefaces.R;
@@ -77,6 +78,8 @@ public class RageFacePickerActivity extends FragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		Crashlytics.start(this);
 
 		boolean dbExists = DatabaseHelper.createOrUpdateDatabase(this);
 
