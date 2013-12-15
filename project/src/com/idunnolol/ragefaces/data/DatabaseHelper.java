@@ -19,7 +19,7 @@ import com.danlew.utils.Log;
 public class DatabaseHelper {
 
 	// Increase this number to cause a DB update
-	private static final int DB_VERSION = 13;
+	private static final int DB_VERSION = 14;
 
 	private static final String DB_NAME = "faces.db";
 
