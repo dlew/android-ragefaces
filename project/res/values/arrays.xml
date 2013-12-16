@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string-array name="contributors">
+    <string-array name="contributors" tools:ignore="MissingTranslation">
         <item>nivekmai</item>
         <item>mendhak</item>
     </string-array>
 
-    <string-array name="translators">
+    <string-array name="translators" tools:ignore="MissingTranslation">
         <item>mischi</item>
         <item>Oliver Thomas Cervera</item>
         <item>Adevade</item>
